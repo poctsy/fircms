@@ -1,0 +1,66 @@
+先在protected\extensions下创建KEditor文件夹用来放文件，keSource里放kindeditor的源文件，然后建三个类KEditor、KEditorManage和KEditorUpload，KEditor是扩展的主文件，KEditorManage是用来浏览服务器文件的，KEditorUpload是用来示例接收上传文件的，
+KEditor代码
+
+配置config/main.php文件，设置上传文件存放位置
+
+'params'=>array(
+		// this is used in contact page
+		'adminEmail'=>'webmaster@example.com',
+		'uploadPath'=>'/upload',  //添加这句，upload为存放文件文件夹的名字，自己定义，这里是放在根目录的upload文件夹
+
+
+设置接收文件和浏览服务器文件的action
+
+public function actions()
+{
+	return array(
+		//在actions下的return array添加下面两句，没有actions的话自己添加
+		'upload'=>array('class'=>'application.extensions.KEditor.KEditorUpload'),
+		'manageJson'=>array('class'=>'application.extensions.KEditor.KEditorManage'),
+	);
+}
+
+在视图里面使用
+
+<?php $this->widget('ext.KEditor.KEditor',array(
+			'model'=>$model,  //传入form model
+			'name'=>'content', //设置name
+			'properties'=>array(
+				//设置接收文件上传的action
+				'uploadJson'=>'/admin/default/upload',
+				//设置浏览服务器文件的action，这两个就是上面配置在/admin/default的
+				'fileManagerJson'=>'/admin/default/manageJson',
+				'newlineTag'=>'br',
+				'allowFileManager'=>true,
+				//传值前加js:来标记这些是js代码
+				'afterCreate'=>"js:function() {
+						K('#ChapterForm_all_len').val(this.count());
+						K('#ChapterForm_word_len').val(this.count('text'));
+					}",
+				'afterChange'=>"js:function() {
+						K('#ChapterForm_all_len').val(this.count());
+						K('#ChapterForm_word_len').val(this.count('text'));
+					}",
+			), 
+			'textareaOptions'=>array(
+				'style'=>'width:98%;height:400px;',
+			)
+		)); ?>
+
+textareaOptions用来设置textarea的大小和样式，仅支持rows、cols和style
+properties的各项跟js设置kindeditor的是一样的，上面的设置与下面用js设置的是一致，kindeditor原来有的项都可以设置
+
+var editor1 = K.create('#editor_modelname_name', {
+	uploadJson : "/admin/default/upload",
+	fileManagerJson : "/admin/default/manageJson",
+	newlineTag : "br",
+	allowFileManager : true,
+	afterCreate : function() {
+		K('#ChapterForm_all_len').html(this.count());
+		K('#ChapterForm_word_len').html(this.count('text'));
+	},
+	afterChange : function() {
+		K('#ChapterForm_all_len').html(this.count());
+		K('#ChapterForm_word_len').html(this.count('text'));
+	}
+});
