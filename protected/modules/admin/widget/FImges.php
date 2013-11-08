@@ -18,7 +18,9 @@ class FImges extends CWidget
             $cs->registerScriptFile($baseUrl . '/kindeditor.js');
         else
             $cs->registerScriptFile($baseUrl . '/kindeditor-min.js');
-        $cs->registerScriptFile(Yii::app()->theme->baseUrl . '/js/imgesform.js');
+
+        $cs->registerCssFile(Yii::app()->getModule('admin')->getAssetsUrl() . '/css/f-images.css');
+        $cs->registerScriptFile(Yii::app()->getModule('admin')->getAssetsUrl() . '/js/f-images.js');
 
 
 
@@ -40,8 +42,8 @@ class FImges extends CWidget
 EOF;
 
 
-echo CHtml::button("图片上传", array('id' => 'Images_selectImage'));
-echo CHtml::button("浏览服务器", array('id' => 'filemanager'));
+echo CHtml::button("图片上传", array('id' => 'Post_selectImage'));
+echo CHtml::button("浏览服务器", array('id' => 'imagesmanager'));
 echo $html;
 
 

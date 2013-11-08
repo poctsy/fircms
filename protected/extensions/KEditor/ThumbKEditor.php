@@ -103,7 +103,19 @@ KindEditor.ready(function(K) {
         });
 
     });
- 
+     K('#filemanager').click(function() {
+        file_editor.loadPlugin('filemanager', function() {
+            file_editor.plugin.filemanagerDialog({
+                viewType: 'VIEW',
+                dirName: 'file',
+                clickFn: function(url, title) {
+                    url = K.formatUrl(url, 'relative');
+                    K('#Post_file').val(url);
+                    editor.hideDialog();
+                }
+            });
+        });
+    });
 
 });
 EOF;

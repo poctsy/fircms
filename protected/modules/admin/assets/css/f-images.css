@@ -1,0 +1,44 @@
+#imagesnow .listimg{
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 1px dotted black;
+    height: 120px;
+    overflow: hidden;
+}
+#imagesnow img {
+    width: 80px;
+    height: 80px;
+    margin: 8px;
+
+}
+#imagesnow input{
+    width: 102px;
+    margin-left: -2px;
+    border: 1px dotted rgb(209, 199, 199);
+    text-align: center;
+}
+#sortable{
+    padding-left: 5px;
+}
+
+#sortable li {
+    list-style: none;
+    margin: 3px 3px 3px 0;
+    padding: 1px;
+    float: left;
+    width: 100px;
+    height: 110px;
+    text-align: center;
+    border: 1px dotted rgb(209, 199, 199);
+}
+
+#sortable li .delectli{
+    margin-top: -124px;
+    margin-left: 89px;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    display: block;
+    background-image: url(../img/images-delect.jpg);
+}

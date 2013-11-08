@@ -16,7 +16,7 @@ $(function() {
     });
     $('#sortable').sortable({
         update: function(event, ui) {
-            images = $('#Images_images').attr('value');
+            images = $('#Post_images').attr('value');
             $('#content').append('<input id=\"tembsort\"type=\"hidden\" >');
             $('#content').append('<input id=\"tembsort-last\"type=\"hidden\" >');
             image = images.split('{/img}');
@@ -35,7 +35,7 @@ $(function() {
                     $('#tembsort-last').val($('#tembsort-last').attr('value') + val+'{/text}{/img}');
                 }
             });
-            $('#Images_images').val($('#tembsort-last').val())
+            $('#Post_images').val($('#tembsort-last').val())
             $('#tembsort').attr('value', '');
             $('#tembsort-last').attr('value', '');
             $('#tembsort').remove();
@@ -54,11 +54,11 @@ function sortableinput() {
             $(this).css('background-color', 'rgb(212, 240, 214);');
             citetext = this.value;
             imgsrc = $(this).prev().attr('src');
-            images = $('#Images_images').attr('value');
+            images = $('#Post_images').attr('value');
             image = images.split('{/img}');
             $.each(image, function(i, val) {
                 if (val.indexOf(imgsrc) >= 0) {
-                    $('#Images_images').val(images.replace(val, '{img}{src}' + imgsrc + '{/src}{text}' + citetext + '{/text}'));
+                    $('#Post_images').val(images.replace(val, '{img}{src}' + imgsrc + '{/src}{text}' + citetext + '{/text}'));
                 }
             });
         }
@@ -68,7 +68,7 @@ function sortableinput() {
     });
 }
 function startimagesnow() {
-    Images = $('#Images_images').attr('value');
+    Images = $('#Post_images').attr('value');
     Imagesarray = Images.split('{/img}');
     div = $('#sortable');
     $.each(Imagesarray, function(i, val) {
@@ -81,11 +81,11 @@ function startimagesnow() {
 function delectli() {
     delect = $('.delectli').click(function() {
         imgsrc = $(this).prev().prev().attr('src');
-        images = $('#Images_images').attr('value');
+        images = $('#Post_images').attr('value');
         image = images.split('{/img}');
         $.each(image, function(i, val) {
             if (val.indexOf(imgsrc) >= 0) {
-                $('#Images_images').val(images.replace(val + '{/img}', ''));
+                $('#Post_images').val(images.replace(val + '{/img}', ''));
             }
         });
         $(this).parent().remove();
@@ -93,7 +93,7 @@ function delectli() {
 
 }
 KindEditor.ready(function(K) {
-    var editor = K.editor({
+    var images_editor = K.editor({
         'fileManagerJson': './index.php?r=admin/upload/kmanageJson',
         'uploadJson': './index.php?r=admin/upload/kupload',
         'allowFileManager': true,
@@ -101,42 +101,42 @@ KindEditor.ready(function(K) {
             'YII_CSRF_TOKEN':''+$("input[name='YII_CSRF_TOKEN']").val()+''
         }
     });
-    K('#Images_selectImage').click(function() {
-        editor.loadPlugin('multiimage', function() {
-            editor.plugin.multiImageDialog({
+    K('#Post_selectImage').click(function() {
+        images_editor.loadPlugin('multiimage', function() {
+            images_editor.plugin.multiImageDialog({
                 clickFn: function(urlList) {
                     var div = K('#sortable');
                     K.each(urlList, function(i, data) {
                         url = K.formatUrl(data.url, 'relative');
-                        images = $('#Images_images').attr('value');
+                        images = $('#Post_images').attr('value');
                         if (images.indexOf(url) < 0) {
                             div.append('<li class=\"ui-state-default\"><img src=\"' + url+ '\"><input type=\"text\" value=\"undefined\"  ><span class=\"delectli\"></span></li>');
-                            $('#Images_images').val(images + '{img}{src}' + url + '{/src}{text}' + undefined + '{/text}{/img}');
+                            $('#Post_images').val(images + '{img}{src}' + url + '{/src}{text}' + undefined + '{/text}{/img}');
                         }
                     });
                     sortableinput();
                     delectli();
-                    editor.hideDialog();
+                    images_editor.hideDialog();
                 }
             });
         });
     });
-    K('#filemanager').click(function() {
-        editor.loadPlugin('filemanager', function() {
-            editor.plugin.filemanagerDialog({
+    K('#imagesmanager').click(function() {
+        images_editor.loadPlugin('filemanager', function() {
+            images_editor.plugin.filemanagerDialog({
                 viewType: 'VIEW',
                 dirName: 'image',
                 clickFn: function(url, title) {
                     url = K.formatUrl(url, 'relative');
                     var div = K('#sortable');
-                    images = $('#Images_images').attr('value');
+                    images = $('#Post_images').attr('value');
                     if (images.indexOf(url) < 0) {
                         div.append('<li class=\"ui-state-default\"><img src=\"' + url + '\"><input type=\"text\" value=\"undefined\" ><span class=\"delectli\"></span></li>');
-                        $('#Images_images').val(images + '{img}{src}' + url + '{/src}{text}' + undefined + '{/text}{/img}');
+                        $('#Post_images').val(images + '{img}{src}' + url + '{/src}{text}' + undefined + '{/text}{/img}');
                     }
                     sortableinput();
                     delectli();
-                    editor.hideDialog();
+                    images_editor.hideDialog();
                 }
             });
         });
