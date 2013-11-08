@@ -9,6 +9,8 @@ class FAdminController extends Controller {
     private $_postListViews;
     private $_postPageViews;
     private $_postContentViews;
+    private $_pageViews;
+
     public function getPostListViews(){
 
         if($this->_postListViews === NULL){
@@ -32,5 +34,11 @@ class FAdminController extends Controller {
             return $this->_postContentViews;
         }
     }
-
+    public function getPageViews(){
+        if($this->_pageViews === NULL){
+            return Fircms::getViews('page');
+        } else{
+            return $this->_pageViews;
+        }
+    }
 }

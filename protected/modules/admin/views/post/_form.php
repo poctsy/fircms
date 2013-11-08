@@ -70,8 +70,14 @@
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'title_s'); ?>
+        <?php echo $form->textField($model, 'title_s', array('size' => 60, 'maxlength' => 100)); ?>
+        <?php echo $form->error($model, 'title_s'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'keyword'); ?>
-        <?php echo $form->textField($model, 'keyword', array('size' => 30, 'maxlength' => 30)); ?>
+        <?php echo $form->textField($model, 'keyword', array('size' => 30, 'maxlength' => 100)); ?>
         <?php echo $form->error($model, 'keyword'); ?>
     </div>
 
@@ -81,7 +87,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textField($model, 'description', array('size' => 30, 'maxlength' => 30)); ?>
+        <?php echo $form->textArea($model, 'description', array('rows'=>"5", 'cols'=>"90")); ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
 

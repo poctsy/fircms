@@ -8,27 +8,42 @@
  */
 class Fircms extends CComponent{
 //获取views下的视图跟theme下视图
-    public function getViews($modules,$select) {
-
+    public function getViews($modules,$select='no') {
+//获取views视图
         $selectArray=array();
         if(is_dir($dir=Yii::app()->viewPath.DIRECTORY_SEPARATOR.$modules)){
             $viewsArray = scandir($dir);
             foreach( $viewsArray as $value){
-                if(strstr($value,$select) != NULL){
-                 $value = substr($value, 0, -4);
-                $selectArray[]=$value;
-
+                if($select !='no'){
+                    //将包含视图指定前缀的文件加入数组
+                    if(strstr($value,$select) != NULL){
+                        //去除后缀
+                        $value = substr($value, 0, -4);
+                        $selectArray[]=$value;
+                    }
+                }else{
+                    //将不是'.' '..' 的文件加入数组
+                    if($value != '.' && $value != '..' ){
+                        $value = substr($value, 0, -4);
+                        $selectArray[]=$value;
+                    }
                 }
             }
         }
-
+//获取theme下视图
         if(Yii::app()->theme !=NULL && is_dir($dir=Yii::app()->theme->basePath.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$modules)){
-            $themeViewsArray=array();
             $themeViewsArray = scandir($dir);
             foreach( $themeViewsArray as $value){
-                if(strstr($value,$select) != NULL){
-                    $value = substr($value, 0, -4);
-                    $selectArray[]=$value;
+                if($select !='no'){
+                    if(strstr($value,$select) != NULL){
+                        $value = substr($value, 0, -4);
+                        $selectArray[]=$value;
+                    }
+                }else{
+                    if($value != '.' && $value != '..' ){
+                        $value = substr($value, 0, -4);
+                        $selectArray[]=$value;
+                    }
                 }
             }
         }

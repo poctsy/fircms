@@ -14,6 +14,7 @@
  * @property integer $id
  * @property string $thumb
  * @property string $title
+ * @property string $title_s
  * @property string $keyword
  * @property string $description
  * @property string $url
@@ -39,12 +40,12 @@ class Page extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('thumb', 'length', 'max'=>130),
-			array('title, view', 'length', 'max'=>50),
+			array('title, title_s,view', 'length', 'max'=>50),
 			array('keyword, description, url', 'length', 'max'=>30),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, thumb, title, keyword, description, url, content, view', 'safe', 'on'=>'search'),
+			array('id, title,content', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,13 +67,14 @@ class Page extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'thumb' => 'Thumb',
-			'title' => 'Title',
-			'keyword' => 'Keyword',
-			'description' => 'Description',
-			'url' => 'Url',
-			'content' => 'Content',
-			'view' => 'View',
+			'thumb' => '缩略图',
+			'title' => '标题',
+            'title_s' => 'SEO标题',
+			'keyword' => 'SEO关键字',
+			'description' => 'SEO描述',
+			'url' => '单页标识符',
+			'content' => '内容',
+			'view' => '模板',
 		);
 	}
 
@@ -95,13 +97,9 @@ class Page extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('thumb',$this->thumb,true);
 		$criteria->compare('title',$this->title,true);
-		$criteria->compare('keyword',$this->keyword,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('url',$this->url,true);
 		$criteria->compare('content',$this->content,true);
-		$criteria->compare('view',$this->view,true);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

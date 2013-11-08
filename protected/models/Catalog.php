@@ -77,12 +77,12 @@ class Catalog extends FActiveRecord {
 
             array('parent,', 'numerical', 'integerOnly' => true),
             array(' keyword,,show_type description, url', 'length', 'max' => 30),
-            array('title,list_view,page_view,content_view', 'length', 'max' => 50),
+            array('title_s,list_view,page_view,content_view', 'length', 'max' => 50),
 
             array('content', 'filter', 'filter' => array($this, 'contentPurify')),
-            array('name,title, keyword, description,content, list_view,page_view,content_view', 'filter', 'filter' => array($this, 'Purify')),
+            array('name,title_s, keyword, description,content, list_view,page_view,content_view', 'filter', 'filter' => array($this, 'Purify')),
 
-            array('id,lft, rgt, level,name,title, keyword, description, show_type, url, content,list_view,page_view, content_view', 'safe', 'on' => 'search'),
+            array('id,lft, rgt, level,name,title_s, keyword, description, show_type, url, content,list_view,page_view, content_view', 'safe', 'on' => 'search'),
 
         );
     }
@@ -105,9 +105,9 @@ class Catalog extends FActiveRecord {
         return array(
             'parent' => '所属分类',
             'name'=>'栏目名称',
-            'url' => '目录网址',
+            'url' => '栏目标识符',
             'thumb' => '缩略图',
-            'title' => 'SEO标题',
+            'title_s' => 'SEO标题',
             'keyword' => 'SEO关键字',
             'description' => 'SEO描述',
             'show_type' => '显示方式',
@@ -141,7 +141,7 @@ class Catalog extends FActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->compare('title', $this->title, true);
+        $criteria->compare('title_s', $this->title_s, true);
         $criteria->compare('keyword', $this->keyword, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('show_type', $this->show_type);

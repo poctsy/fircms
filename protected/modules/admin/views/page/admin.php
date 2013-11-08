@@ -42,7 +42,6 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'title',
-		'content',
         array(
             'class'=>'CButtonColumn',
             'template' => '{update},{delete}',

@@ -15,6 +15,7 @@
  * @property integer $id
  * @property integer $catalog_id
  * @property string $title
+ * @property string $title_s
  * @property string $keyword
  * @property string $thumb
  * @property string $description
@@ -52,10 +53,11 @@ class Post extends FActiveRecord {
             array('title,catalog_id', 'required'),
             array('user_id, view_count,catalog_id', 'numerical', 'integerOnly'=>true),
 
-            array('title, thumb', 'length', 'max'=>100),
+            array('thumb', 'length', 'max'=>100),
+            array('title, title_s', 'length', 'max'=>50),
             array('keyword, description', 'length', 'max'=>30),
 
-            array('title,thumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
+            array('title,, title_sthumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
             array('content,images,file', 'filter', 'filter' => array($this, 'contentPurify')),
 
             // @todo Please remove those attributes that should not be searched.
@@ -83,6 +85,7 @@ class Post extends FActiveRecord {
 
             'catalog_id' => '所属栏目',
             'title' => '标题',
+            'title_s' => 'SEO标题',
             'keyword' => 'SEO关键字',
             'thumb' => '缩略图',
             'description' => 'SEO描述',
