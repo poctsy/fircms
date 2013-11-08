@@ -36,7 +36,7 @@ class FImges extends CWidget
     public function renderImages(){
 
   $html=<<<EOF
-        <div id='imagesnow' style='width: 100%;height:260px; border:1px dashed slategray;overflow-y:scroll;' onload="startimagesnow">
+        <div id='imagesnow' style='width: 100%;height:260px; border:1px dashed slategray;overflow-x:scroll;' onload="startimagesnow">
     <ul id="sortable"></ul>
 </div>
 EOF;
