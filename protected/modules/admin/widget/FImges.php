@@ -42,9 +42,9 @@ class FImges extends CWidget
 EOF;
 
 
-echo CHtml::button("图片上传", array('id' => 'Post_selectImage'));
-echo CHtml::button("浏览服务器", array('id' => 'imagesmanager'));
+
 echo $html;
+echo CHtml::button("上传图片", array('id' => 'Post_selectImage'));
 
 
  echo CHtml::activeHiddenField($this->model, 'images');

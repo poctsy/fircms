@@ -57,7 +57,7 @@ class Post extends FActiveRecord {
             array('title, title_s', 'length', 'max'=>50),
             array('keyword, description', 'length', 'max'=>30),
 
-            array('title,, title_sthumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
+            array('title,, title_s,thumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
             array('content,images,file', 'filter', 'filter' => array($this, 'contentPurify')),
 
             // @todo Please remove those attributes that should not be searched.

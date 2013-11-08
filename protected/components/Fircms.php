@@ -366,6 +366,16 @@ class Fircms extends CComponent{
         return serialize($array_c);
     }
 
+    public static function getNovelImageUrl($imageUrl)
+    {
+        if (preg_match('/^http:\/\//', $imageUrl) > 0) return $imageUrl;
+
+        $baseUrl = Yii::app()->baseUrl;
+        if (preg_match('/^\//', $imageUrl) == 0 && preg_match('/\/$/', $baseUrl) == 0) $baseUrl .= '/';
+
+        return $baseUrl . $imageUrl;
+    }
+
 }
 
 

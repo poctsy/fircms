@@ -44,16 +44,22 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'thumb'); ?>
-        <?php $this->widget('FThumb',array('model'=>$model))?>
+        <?php if ($this->action->id == 'update'):?>
+            <?php echo CHtml::image(Fircms::getNovelImageUrl($model->thumb),'',array('style'=>"width:150px;height:150px"));?>
+        <?php endif; ?>
+        <?php echo $form->fileField($model,'thumb')?>
         <?php echo $form->error($model, 'thumb'); ?>
     </div>
+
+
 
 
 
     <div class="row">
 
         <?php echo $form->labelEx($model, 'file'); ?>
-        <?php  $this->widget('FFile', array('model'=>$model));?>
+        <?php echo CHtml::textField( 'file',$model->file, array('readonly' => true,'size' => 20,)); ?>
+        <?php echo $form->fileField($model,'file')?>
         <?php echo $form->error($model, 'file'); ?>
     </div>
     <div class="row">

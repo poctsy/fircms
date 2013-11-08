@@ -31,6 +31,19 @@ class PostController extends FAdminController {
         
         if (isset($_POST['Post'])) {
             $model->attributes = $_POST['Post'];
+
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb');
+            if(!empty($thumbUpload))
+            {
+                $model->thumb = Upload::createFile($thumbUpload,'thumb','create');
+            }
+
+            $fileUpload = CUploadedFile::getInstance($model,'file');
+            if(!empty($fileUpload))
+            {
+                $model->file = Upload::createFile($fileUpload,'file','create');
+            }
+
                 if ($model->save())
                     $this->redirect(array('admin'));
 
@@ -55,6 +68,19 @@ class PostController extends FAdminController {
         if (isset($_POST['Post']) ) {
 
             $model->attributes = $_POST['Post'];
+
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb');
+
+            if(!empty($thumbUpload))
+            {
+                $model->thumb = Upload::createFile($thumbUpload,'thumb','update');
+            }
+
+            $fileUpload = CUploadedFile::getInstance($model,'file');
+            if(!empty($fileUpload))
+            {
+                $model->file = Upload::createFile($fileUpload,'file','update');
+            }
 
             if ($model->save() )
                 $this->redirect(array('admin'));

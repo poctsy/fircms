@@ -94,9 +94,7 @@ function delectli() {
 }
 KindEditor.ready(function(K) {
     var images_editor = K.editor({
-        'fileManagerJson': './index.php?r=admin/upload/kmanageJson',
         'uploadJson': './index.php?r=admin/upload/kupload',
-        'allowFileManager': true,
         'extraFileUploadParams':{
             'YII_CSRF_TOKEN':''+$("input[name='YII_CSRF_TOKEN']").val()+''
         }
