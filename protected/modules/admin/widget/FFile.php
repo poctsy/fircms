@@ -41,7 +41,7 @@ KindEditor.ready(function(K) {
                             url = K.formatUrl(url, 'relative');
                             K('#Post_file').val(url);
 
-                            editor.hideDialog();
+                            file_editor.hideDialog();
 
                         }
                     }

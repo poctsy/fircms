@@ -1,10 +1,21 @@
 <?php
 class FMiNiKe extends CWidget
 {
-
+    public $baseUrl;
     public $model;
+    public $name;
     public function init()
     {
+        if($this->name===null)
+            throw new CException(Yii::t('zii','The id property cannot be empty.'));
+
+        $dir = dirname(__FILE__).DIRECTORY_SEPARATOR.'keSource';
+
+        $this->baseUrl=Yii::app()->getAssetManager()->publish($dir);
+        $cs=Yii::app()->getClientScript();
+        $cs->registerCssFile($this->baseUrl.'/themes/default/default.css');
+        if(YII_DEBUG) $cs->registerScriptFile($this->baseUrl.'/kindeditor.js');
+        else $cs->registerScriptFile($this->baseUrl.'/kindeditor-min.js');
 
 $js=<<<EOF
 KindEditor.ready(function(K) {

@@ -96,7 +96,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'content'); ?>
-        <?php  $this->widget('FMiNiKe', array('model'=>$model));?>
+        <?php  $this->widget('ext.KEditor.FMiNiKe', array('model'=>$model,'name'=>'content'));?>
         <?php echo $form->error($model, 'content'); ?>
     </div>
     <div class="row">
