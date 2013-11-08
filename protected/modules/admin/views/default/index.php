@@ -15,10 +15,10 @@ $this->menu=array(
  <p><strong>未读信息</strong></p>
        <p>反馈信息:
            <?php echo CHtml::link(Feedback::model()->count(array('condition'=>"status='1'"))
-               ,array('/comment/feedback/admin'));?>
+               ,array('feedback/admin'));?>
            在线留言:
            <?php echo CHtml::link(Message::model()->count(array('condition'=>"status='1'"))
-               ,array('/comment/message/admin'));?>
+               ,array('message/admin'));?>
        </p>
 </span>
 </div>

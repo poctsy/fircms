@@ -42,7 +42,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'path',
 				              array(
             'class' => 'CButtonColumn',
-            'template' =>'{update}{delete}',
+            'template' =>'{delete}',
             'deleteButtonImageUrl' => false,
         ),
 	),
