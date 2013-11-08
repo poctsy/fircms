@@ -58,7 +58,9 @@
     <div class="row">
 
         <?php echo $form->labelEx($model, 'file'); ?>
-        <?php echo CHtml::textField( 'file',$model->file, array('readonly' => true,'size' => 20,)); ?>
+        <?php if ($this->action->id == 'update'):?>
+            <?php echo CHtml::textField( 'file',$model->file, array('readonly' => true,'size' => 20,)); ?>
+        <?php endif; ?>
         <?php echo $form->fileField($model,'file')?>
         <?php echo $form->error($model, 'file'); ?>
     </div>
