@@ -44,7 +44,7 @@
     <div class="row">
 
         <?php echo $form->labelEx($model, 'show_type'); ?>
-        <?php  echo $form->dropDownList($model, 'show_type', array('list'=>'列表','page'=>'单页'), array('style' => 'width:200px;')); ?>
+        <?php  echo $form->dropDownList($model, 'show_type', Catalog::getAllShow_type(), array('style' => 'width:200px;')); ?>
         <?php echo $form->error($model, 'show_type'); ?>
 
 

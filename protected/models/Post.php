@@ -137,7 +137,7 @@ class Post extends FActiveRecord {
 
 
 
-    public function cataloglookup(){
+    public function catalogLookup(){
         return $this->catalog->name;
     }
     public function beforeSave(){
@@ -148,14 +148,11 @@ class Post extends FActiveRecord {
         return true;
     }
 
-    public function list_view($name){
+
+    public function getList_view($name){
         $catalog=Catalog::nameGet($name);
         return $catalog->list_view;
     }
 
-    public function content_view($id){
-        $model=Post::model()->findByPk($id);
-        return $model->catalog->content_view;
-    }
 
 }

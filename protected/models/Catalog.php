@@ -324,5 +324,9 @@ class Catalog extends FActiveRecord {
         return $catalg;
     }
 
+    public function getAllShow_type(){
+        return array('list'=>'列表','page'=>'单页');
+
+    }
 
 }

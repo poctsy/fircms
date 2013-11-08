@@ -1,13 +1,10 @@
 <?php
 /**
-* @version   Comment.php  22:04 2013年09月26日
-* @author    poctsy <poctsy@foxmail.com>
-* @copyright Copyright (c) 2013 poctsy
-* @link      http://www.fircms.com
-*/
-
-
-
+ * @version   Comment.php  22:04 2013年09月26日
+ * @author    poctsy <poctsy@foxmail.com>
+ * @copyright Copyright (c) 2013 poctsy
+ * @link      http://www.fircms.com
+ */
 /**
  * This is the model class for table "{{feedback}}".
  *
@@ -17,6 +14,7 @@
  * @property integer $status
  * @property integer $create_time
  * @property string $name
+ * @property string $position
  * @property string $email
  * @property string $phone
  * @property string $user_id
@@ -40,14 +38,14 @@ class Feedback extends FActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('content,position,category，status, name, email, phone', 'filter', 'filter' => array($this, 'contentPurify')),
-			array('content, , category，status,', 'required'),
+			array('content, email', 'required'),
 			array('status, create_time, category', 'numerical', 'integerOnly'=>true),
-			array('name, email,position, phone', 'length', 'max'=>128),
+			array('name, position, email, phone', 'length', 'max'=>128),
 			array('user_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, content, status, position,create_time, name, email, phone, user_id, category', 'safe', 'on'=>'search'),
+			array('id, content, status, create_time, name, position, email, phone, user_id, category', 'safe', 'on'=>'search'),
+            array('content,position,name, email, phone', 'filter', 'filter' => array($this, 'contentPurify')),
 		);
 	}
 
@@ -69,14 +67,15 @@ class Feedback extends FActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'content' => '内容',
-			'status' => '状态',
-			'create_time' => '时间',
-			'name' => '姓名',
-            'position'=>'职务',
-			'email' => '邮箱',
-			'phone' => '电话',
-			'category' => '分类',
+			'content' => 'Content',
+			'status' => 'Status',
+			'create_time' => 'Create Time',
+			'name' => 'Name',
+			'position' => 'Position',
+			'email' => 'Email',
+			'phone' => 'Phone',
+			'user_id' => 'User',
+			'category' => 'Category',
 		);
 	}
 
@@ -103,7 +102,7 @@ class Feedback extends FActiveRecord
 		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('name',$this->name,true);
-        $criteria->compare('position',$this->name,true);
+		$criteria->compare('position',$this->position,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('user_id',$this->user_id,true);
@@ -111,9 +110,6 @@ class Feedback extends FActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-            'pagination'=>array(
-                'pageSize'=>20,
-            )
 		));
 	}
 
@@ -128,14 +124,14 @@ class Feedback extends FActiveRecord
 		return parent::model($className);
 	}
 
-    public function statuslookup(){
+    public function statusLookup(){
         if($this->status ==1){
             return "未答复";
         }else{
             return "已答复";
         }
     }
-    public function categorylookup(){
+    public function categoryLookup(){
         if($this->category ==1){
             return "业务咨询";
         }else{
@@ -143,13 +139,14 @@ class Feedback extends FActiveRecord
         }
     }
 
-    public function everyCategory(){
-        $category=array('1'=>'索取资料','2'=>'产品购买','商务合作','其他反馈');
-        return $category;
+    public function getAllCategory(){
+        return array('1'=>'索取资料','2'=>'产品购买','3'=>'商务合作','4'=>'其他反馈');
+
     }
 
-    public function everyStatus(){
-        $status=array('1'=>'未阅读信息','2'=>'已阅读信息');
-        return $status;
+    public function getAllStatus(){
+        return array('1'=>'未阅读信息','2'=>'已阅读信息');
+
     }
+
 }

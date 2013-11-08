@@ -22,13 +22,13 @@
     <div class="row">
         <?php echo $form->labelEx($model,'category'); ?>
 
-        <?php echo $form->dropDownList($model,'category',Feedback::everyCategory()); ?>
+        <?php echo $form->dropDownList($model,'category',Feedback::getAllCategory()); ?>
         <?php echo $form->error($model,'category'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model,'status'); ?>
-        <?php echo $form->dropDownList($model,'status',Feedback::everyStatus()); ?>
+        <?php echo $form->dropDownList($model,'status',Feedback::getAllStatus()); ?>
         <?php echo $form->error($model,'status'); ?>
     </div>
 
