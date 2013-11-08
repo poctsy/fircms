@@ -16,6 +16,12 @@
 		<?php echo $form->textField($model,'id'); ?>
 	</div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'catalog_id'); ?>
+
+        <?php echo $form->dropDownList($model,'catalog_id',Catalog::selectTree()); ?>
+        <?php echo $form->error($model,'catalog_id'); ?>
+    </div>
 
 	<div class="row">
 		<?php echo $form->label($model,'title'); ?>

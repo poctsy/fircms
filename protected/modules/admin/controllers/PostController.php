@@ -31,8 +31,6 @@ class PostController extends FAdminController {
         
         if (isset($_POST['Post'])) {
             $model->attributes = $_POST['Post'];
-         //$model->post=Helper::makeSerialize($model->post);
-
                 if ($model->save())
                     $this->redirect(array('admin'));
 

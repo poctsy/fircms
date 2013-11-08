@@ -14,7 +14,7 @@
     <div class="row">
         <?php echo $form->labelEx($model,'category'); ?>
 
-        <?php echo $form->dropDownList($model,'category',array('1'=>'业务咨询','2'=>'产品建议')); ?>
+        <?php echo $form->dropDownList($model,'category',array('1'=>'索取资料','2'=>'产品购买','3'=>'商务合作','4'=>'其他反馈')); ?>
         <?php echo $form->error($model,'category'); ?>
     </div>
 

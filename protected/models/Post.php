@@ -34,7 +34,7 @@ class Post extends FActiveRecord {
 
 
     public $catalog_id;
-    public $catalog_name;
+
 
     public function tableName() {
         return '{{post}}';
@@ -48,14 +48,14 @@ class Post extends FActiveRecord {
         // will receive user inputs.
         return array(
 
-            array('catalog_id,content,images,file,catalog_name','safe'),
+            array('catalog_id,content,images,file ','safe'),
             array('title,catalog_id', 'required'),
             array('user_id, view_count,catalog_id', 'numerical', 'integerOnly'=>true),
 
             array('title, thumb', 'length', 'max'=>100),
             array('keyword, description', 'length', 'max'=>30),
 
-            array('title,thumb,keyword,description,catalog_name', 'filter', 'filter' => array($this, 'Purify')),
+            array('title,thumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
             array('content,images,file', 'filter', 'filter' => array($this, 'contentPurify')),
 
             // @todo Please remove those attributes that should not be searched.
@@ -80,7 +80,7 @@ class Post extends FActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'catalog_name'=>'栏目名称',
+
             'catalog_id' => '所属栏目',
             'title' => '标题',
             'keyword' => 'SEO关键字',
@@ -109,10 +109,9 @@ class Post extends FActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-       // $criteria->with= array('catalog');
-       // $criteria->compare('catalog.id', $this->catalog_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('id', $this->id);
+        $criteria->compare('catalog_id', $this->catalog_id, true);
         $criteria->compare('content', $this->content, true);
         $criteria->compare('thumb', $this->file, true);
         return new CActiveDataProvider($this, array(
@@ -137,13 +136,10 @@ class Post extends FActiveRecord {
     }
 
 
-    public function afterFind(){
-        if(!$this->isNewRecord){
-            $this->catalog_name=$this->catalog->name;
-        }
+
+    public function cataloglookup(){
+        return $this->catalog->name;
     }
-
-
     public function beforeSave(){
         if($this->user_id==NULL){
             $this->user_id="";

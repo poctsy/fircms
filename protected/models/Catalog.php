@@ -17,7 +17,7 @@
  * @property string $name
  * @property string $keyword
  * @property string $description
- * @property integer $show_type
+ * @property string $show_type
  * @property string $url
  * @property text  $content
  * @property string $list_view
@@ -32,7 +32,7 @@ class Catalog extends FActiveRecord {
      * @return string the associated database table name
      */
 
-    const LEVEL = "…";
+    const LEVEL = "……";
     public $_rootName="顶级分类";
 
 
@@ -75,10 +75,9 @@ class Catalog extends FActiveRecord {
             array('name,url,show_type', 'required'),
 
 
-            array('show_type,parent,', 'numerical', 'integerOnly' => true),
-            array(' keyword, description, url', 'length', 'max' => 30),
-            array('title', 'length', 'max' => 50),
-            array('list_view,page_view,content_view', 'length', 'max' => 55),
+            array('parent,', 'numerical', 'integerOnly' => true),
+            array(' keyword,,show_type description, url', 'length', 'max' => 30),
+            array('title,list_view,page_view,content_view', 'length', 'max' => 50),
 
             array('content', 'filter', 'filter' => array($this, 'contentPurify')),
             array('name,title, keyword, description,content, list_view,page_view,content_view', 'filter', 'filter' => array($this, 'Purify')),
@@ -174,29 +173,6 @@ class Catalog extends FActiveRecord {
 
 
 
-
-
-
-
-    public function afterSave(){
-        $this->createPage($this->show_type,$this->id);
-        return true;
-
-    }
-
-    public  function createPage($show_type,$id){
-
-
-            $plugin=Plugin::model()->findByPk($show_type);
-            if($plugin->en_name=='page'){
-                $model = new Page;
-                $model->catalog_id=$id;
-                $model->save();
-
-
-            }
-
-    }
 
     public static function printTree() {
         if(Catalog::model()->count() <2)

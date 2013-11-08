@@ -43,7 +43,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-        array('name'=>'catalog_name','value'=>'$data->catalog_name'),
+        array('name'=>'catalog_id','value'=>'$data->cataloglookup()','filter'=>Catalog::selectTree()),
         'title',
               array(
             'class' => 'CButtonColumn',

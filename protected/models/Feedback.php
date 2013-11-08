@@ -69,13 +69,13 @@ class Feedback extends FActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'content' => '反馈内容',
+			'content' => '内容',
 			'status' => '状态',
-			'create_time' => '留言时间',
-			'name' => '名字',
+			'create_time' => '时间',
+			'name' => '姓名',
             'position'=>'职务',
 			'email' => '邮箱',
-			'phone' => '联系电话',
+			'phone' => '电话',
 			'category' => '分类',
 		);
 	}

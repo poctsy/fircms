@@ -43,13 +43,13 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-        array('name'=>'content','value'=>'Helper::truncate_utf8_string($data->content,50)'),
+        array('name'=>'category','value'=>'$data->categorylookup()','filter'=>array('1'=>'索取资料','2'=>'产品购买','3'=>'商务合作','4'=>'其他反馈')),
         array('name'=>'status','value'=>'$data->statuslookup()','filter'=>array('1'=>'未阅读信息','2'=>'已阅读信息')),
+        array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
         'name',
         'position',
         array('name'=>'create_time','type'=>'datetime'),
-        array('name'=>'category','value'=>'$data->categorylookup()','filter'=>array('1'=>'索取资料','2'=>'产品购买','商务合作','其他反馈')),
-        array(
+       array(
 			'class'=>'CButtonColumn',
             'template' => '{update},{delete}',
             'updateButtonImageUrl' => false,
