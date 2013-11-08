@@ -59,7 +59,7 @@ class Post extends FActiveRecord {
             array('content,images,file', 'filter', 'filter' => array($this, 'contentPurify')),
 
             // @todo Please remove those attributes that should not be searched.
-            array('id,title, content,images,file,catalog_name', 'safe', 'on' => 'search'),
+            array('id,title, content,thumb,catalog_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -71,7 +71,6 @@ class Post extends FActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'catalog'=>array(self::BELONGS_TO, 'Catalog', 'catalog_id'),
-
         );
     }
 
@@ -110,14 +109,12 @@ class Post extends FActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-        $criteria->with= array('catalog');
-        $criteria->compare('catalog.name', $this->catalog_name, true);
+       // $criteria->with= array('catalog');
+       // $criteria->compare('catalog.id', $this->catalog_id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('id', $this->id);
         $criteria->compare('content', $this->content, true);
-        $criteria->compare('images', $this->images, true);
-        $criteria->compare('file', $this->file, true);
-
+        $criteria->compare('thumb', $this->file, true);
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(

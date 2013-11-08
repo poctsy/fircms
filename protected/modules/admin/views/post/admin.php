@@ -36,11 +36,11 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'images-grid',
+	'id'=>'post-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
 	'dataProvider'=>$model->search(),
-	//'filter'=>$model,
+	'filter'=>$model,
 	'columns'=>array(
 		'id',
         array('name'=>'catalog_name','value'=>'$data->catalog_name'),
