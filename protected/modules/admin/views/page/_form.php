@@ -26,10 +26,15 @@
 		<?php echo $form->textField($model,'title',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
+
+
     <div class="row">
         <?php echo $form->labelEx($model, 'thumb'); ?>
-        <?php $this->widget('FThumb',array('model'=>$model))?>
-        <?php echo $form->error($model, 'thumb'); ?>
+        <?php if ($this->action->id == 'update'  && $model->thumb !='' ):?>
+            <?php echo CHtml::image($model->thumb,'',array('style'=>"width:150px;height:150px"));?>
+        <?php endif; ?>
+        <?php echo $form->fileField($model,'thumb_file')?>
+        <?php echo $form->error($model, 'thumb_file'); ?>
     </div>
 
 

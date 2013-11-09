@@ -21,7 +21,11 @@
 
 
 
-
+    <div class="row">
+        <?php echo $form->labelEx($model, 'name'); ?>
+        <?php echo $form->textField($model, 'name', array('size' => 30, 'maxlength' => 30)); ?>
+        <?php echo $form->error($model, 'name'); ?>
+    </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'parent'); ?>
@@ -45,10 +49,20 @@
             </div>
 
     <div class="row"  >
+        <?php echo $form->labelEx($model, 'page_id'); ?>
+        <?php
+
+        echo $form->dropDownList($model, 'page_id',
+            CHtml::listData(Page::model()->findAll(),'id','title'), array('class' => 'span4', 'encode' => false, 'style' => 'width:130px;')
+        ); ?>
+        <?php echo $form->error($model, 'page_id'); ?>
+    </div>
+
+    <div class="row"  >
         <?php echo $form->labelEx($model, 'module'); ?>
         <?php
 
-        echo $form->dropDownList($model, 'module',array('message'=>'留言模块','feedback'=>'反馈模块','special'=>'专题模块')
+        echo $form->dropDownList($model, 'module', Navigation::getAllModule()
             , array('class' => 'span4', 'encode' => false, 'style' => 'width:130px;')
         ); ?>
         <?php echo $form->error($model, 'module'); ?>
@@ -68,7 +82,7 @@
         <?php echo $form->labelEx($model, 'bind_type'); ?>
         <?php
 
-        echo $form->dropDownList($model, 'bind_type',array('0'=>'栏目','1'=>'模块','2'=>'链接')
+        echo $form->dropDownList($model, 'bind_type', Navigation::getAllBind_type()
             , array('class' => 'span4', 'encode' => false, 'style' => 'width:130px;')
         ); ?>
         <?php echo $form->error($model, 'bind_type'); ?>

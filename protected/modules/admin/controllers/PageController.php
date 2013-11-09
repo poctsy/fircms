@@ -36,8 +36,15 @@ class PageController extends FAdminController
 		if(isset($_POST['Page']))
 		{
 			$model->attributes=$_POST['Page'];
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb_file');
+            if(!empty($thumbUpload))
+            {
+                $model->thumb = Fircms::createFile($thumbUpload,'thumb','create','',array(
+                    Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight')
+                ));
+            }
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -60,8 +67,15 @@ class PageController extends FAdminController
 		if(isset($_POST['Page']))
 		{
 			$model->attributes=$_POST['Page'];
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb_file');
+            if(!empty($thumbUpload))
+            {
+                $model->thumb = Fircms::createFile($thumbUpload,'thumb','update',$model->thumb,array(
+                    Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight')
+                ));
+            }
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(

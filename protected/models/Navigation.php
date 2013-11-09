@@ -17,6 +17,8 @@
  * @property integer $level
  * @property string $name
  * @property string $position
+ * @property integer $catalog_id
+ * @property integer page_id
  * @property string link
  * @property string module
  * @property string bind_type
@@ -39,6 +41,7 @@ class Navigation extends FActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'catalog'=>array(self::BELONGS_TO, 'Catalog', 'catalog_id'),
+            'page'=>array(self::BELONGS_TO, 'Page', 'page_id'),
         );
     }
     /**
@@ -49,12 +52,11 @@ class Navigation extends FActiveRecord {
         // will receive user inputs.
         return array(
             array('name,position','required','on'=>'parent'),
-            array('parent,root,bind_type','required','on'=>'child'),
+            array('name,parent,root,bind_type','required','on'=>'child'),
             array('id,position', 'unique'),
-            array('parent,root,bind_type', 'numerical', 'integerOnly' => true),
-            array('bind_type', 'length', 'max' => 11),
+            array('parent,root,bind_type,catalog_id,page_id', 'numerical', 'integerOnly' => true),
+            array('bind_type,catalog_id,page_id', 'length', 'max' => 11),
             array('position,name,module', 'length', 'max' => 20),
-            array('catalog_id', 'length', 'max' => 50),
             array('link', 'length', 'max' =>100),
 
             // The following rule is used by search().
@@ -90,6 +92,7 @@ class Navigation extends FActiveRecord {
             'thumb' => '缩略图',
             'bind_type'=>'类型',
             'catalog_id' => '栏目',
+            'page_id'=>'单页',
             'link' => '链接',
             'module' => '模块',
             'parent'=>'导航条',
@@ -146,6 +149,9 @@ class Navigation extends FActiveRecord {
         if($this->position==NULL){
             $this->position="";
         }
+        if($this->page_id==NULL){
+            $this->page_id="";
+        }
 
         return true;
     }
@@ -183,9 +189,10 @@ class Navigation extends FActiveRecord {
                 $name=$navigation->name.'    (参数:'.$navigation->position.')';
                 $updateAction="update";
             }else{
-                $catalog=Catalog::model()->findByPk($navigation->catalog_id);
-                    $name=$catalog->name;
-                    $updateAction="updatechild";
+                // $catalog=Catalog::model()->findByPk($navigation->catalog_id);
+                // $name=$catalog->name;
+                $name=$navigation->name;
+                $updateAction="updatechild";
             }
 
             echo CHtml::openTag('li', array('id' => 'node_' . $navigation->id, 'rel' => $name));
@@ -286,7 +293,7 @@ class Navigation extends FActiveRecord {
     }
 
     public function selectTreeChild(){
-       return Navigation::makeSelectTreeChild(Navigation::findAllRoot());
+        return Navigation::makeSelectTreeChild(Navigation::findAllRoot());
     }
 
     public static function nameGet($name){
@@ -305,6 +312,13 @@ class Navigation extends FActiveRecord {
         }
         return $navCatalog;
     }
+    public function getAllModule(){
+        return array('message'=>'留言模块','feedback'=>'反馈模块','special'=>'专题模块');
 
+    }
 
+    public function getAllBind_type(){
+        return array('0'=>'栏目','1'=>'单页','2'=>'模块','3'=>'链接');
+
+    }
 }

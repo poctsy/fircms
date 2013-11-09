@@ -26,6 +26,8 @@ class Page extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+    public $thumb_file;
+
 	public function tableName()
 	{
 		return '{{page}}';
@@ -39,6 +41,7 @@ class Page extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('title,url','required'),
 			array('thumb', 'length', 'max'=>130),
 			array('title, title_s,view', 'length', 'max'=>50),
 			array('keyword, description, url', 'length', 'max'=>30),
@@ -46,6 +49,11 @@ class Page extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title,content', 'safe', 'on'=>'search'),
+            array('thumb_file', 'file', 'allowEmpty'=>true,
+                'types'=>'jpg, jpeg, gif, png',
+                'maxSize' => 1024 * 1024 * 3, // 1MB         以字节计算 b  kb mb
+                'tooLarge'=>'上传文件超过 3MB，无法上传',
+            ),
 		);
 	}
 
