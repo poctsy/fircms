@@ -12,4 +12,4 @@ protected目录下建立runtime目录
 
 简化目录架构，使用框架原生目录架构.整合功能。
 
-复杂架构版https://github.com/poctsy/fircms-complex
+复杂架构版（旧版本）https://github.com/poctsy/fircms-complex
