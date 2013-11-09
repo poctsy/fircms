@@ -292,8 +292,8 @@ class Navigation extends FActiveRecord {
         return $treeSelect;
     }
 
-    public function selectTreeChild(){
-        return Navigation::makeSelectTreeChild(Navigation::findAllRoot());
+    public function selectTree(){
+        return Navigation::makeSelectTree(Navigation::model()->findAll(array('order'=>'lft')));
     }
 
     public static function nameGet($name){

@@ -30,7 +30,7 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'parent'); ?>
         <?php
-        echo $form->dropDownList($model, 'parent', Navigation::selectTreeChild(), array('class' => 'span4', 'encode' => false, 'style' => 'width:130px;')
+        echo $form->dropDownList($model, 'parent', Navigation::selectTree(), array('class' => 'span4', 'encode' => false, 'style' => 'width:130px;')
         );
         ?>
         <?php echo $form->error($model, 'parent'); ?>
