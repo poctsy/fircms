@@ -15,6 +15,7 @@
         // There is a call to performAjaxValidation() commented in generated controller code.
         // See class documentation of CActiveForm for details on this.
         'enableAjaxValidation' => false,
+        'htmlOptions'=>array('enctype' => 'multipart/form-data'),
     ));
 
     ?>
@@ -46,12 +47,15 @@
     </div>
 
 
-
     <div class="row">
         <?php echo $form->labelEx($model, 'thumb'); ?>
-        <?php $this->widget('FThumb',array('model'=>$model))?>
-        <?php echo $form->error($model, 'thumb'); ?>
+        <?php if ($this->action->id == 'update' && $model->thumb !=''):?>
+            <?php echo CHtml::image($model->thumb,'',array('style'=>"width:150px;height:150px"));?>
+        <?php endif; ?>
+        <?php echo $form->fileField($model,'thumb_file')?>
+        <?php echo $form->error($model, 'thumb_file'); ?>
     </div>
+
 
 
     <div class="row">

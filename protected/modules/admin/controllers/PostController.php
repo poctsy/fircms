@@ -32,16 +32,19 @@ class PostController extends FAdminController {
         if (isset($_POST['Post'])) {
             $model->attributes = $_POST['Post'];
 
-            $thumbUpload = CUploadedFile::getInstance($model,'thumb');
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb_file');
             if(!empty($thumbUpload))
             {
-                $model->thumb = Upload::createFile($thumbUpload,'thumb','create');
+                $model->thumb = Fircms::createFile($thumbUpload,'thumb','create','',array(
+                    Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight')
+                ));
             }
 
-            $fileUpload = CUploadedFile::getInstance($model,'file');
+
+            $fileUpload = CUploadedFile::getInstance($model,'soft_file');
             if(!empty($fileUpload))
             {
-                $model->file = Upload::createFile($fileUpload,'file','create');
+                $model->soft = Fircms::createFile($fileUpload,'file','create');
             }
 
                 if ($model->save())
@@ -69,17 +72,19 @@ class PostController extends FAdminController {
 
             $model->attributes = $_POST['Post'];
 
-            $thumbUpload = CUploadedFile::getInstance($model,'thumb');
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb_file');
 
             if(!empty($thumbUpload))
             {
-                $model->thumb = Upload::createFile($thumbUpload,'thumb','update');
+                $model->thumb = Fircms::createFile($thumbUpload,'thumb','update',$model->thumb,array(
+                    Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight')
+                ));
             }
 
-            $fileUpload = CUploadedFile::getInstance($model,'file');
+            $fileUpload = CUploadedFile::getInstance($model,'soft_file');
             if(!empty($fileUpload))
             {
-                $model->file = Upload::createFile($fileUpload,'file','update');
+                $model->soft = Fircms::createFile($fileUpload,'file','update',$model->soft);
             }
 
             if ($model->save() )

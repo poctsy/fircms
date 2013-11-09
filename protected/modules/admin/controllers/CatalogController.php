@@ -55,7 +55,13 @@ class CatalogController extends FAdminController {
 
         if (isset($_POST['Catalog'])) {
             $model->attributes = $_POST['Catalog'];
-
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb_file');
+            if(!empty($thumbUpload))
+            {
+                $model->thumb = Fircms::createFile($thumbUpload,'thumb','create','',array(
+                    Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight')
+                ));
+            }
             $parentModel = $this->loadModel($model->parent);
             if ($model->appendTo($parentModel)) {
 
@@ -99,6 +105,15 @@ class CatalogController extends FAdminController {
 
         if (isset($_POST['Catalog']) ) {
             $model->attributes = $_POST['Catalog'];
+
+            $thumbUpload = CUploadedFile::getInstance($model,'thumb_file');
+
+            if(!empty($thumbUpload))
+            {
+                $model->thumb = Fircms::createFile($thumbUpload,'thumb','update',$model->thumb,array(
+                    Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight')
+                ));
+            }
 
 
             //  不等于自身id                 不等于当前父节点                 

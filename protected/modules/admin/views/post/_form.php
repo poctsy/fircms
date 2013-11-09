@@ -17,6 +17,7 @@
         // There is a call to performAjaxValidation() commented in generated controller code.
         // See class documentation of CActiveForm for details on this.
         'enableAjaxValidation' => false,
+        'htmlOptions'=>array('enctype' => 'multipart/form-data'),
     ));
     ?>
 
@@ -44,11 +45,11 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'thumb'); ?>
-        <?php if ($this->action->id == 'update'):?>
-            <?php echo CHtml::image(Fircms::getNovelImageUrl($model->thumb),'',array('style'=>"width:150px;height:150px"));?>
+        <?php if ($this->action->id == 'update'  && $model->thumb !='' ):?>
+            <?php echo CHtml::image($model->thumb,'',array('style'=>"width:150px;height:150px"));?>
         <?php endif; ?>
-        <?php echo $form->fileField($model,'thumb')?>
-        <?php echo $form->error($model, 'thumb'); ?>
+        <?php echo $form->fileField($model,'thumb_file')?>
+        <?php echo $form->error($model, 'thumb_file'); ?>
     </div>
 
 
@@ -57,16 +58,16 @@
 
     <div class="row">
 
-        <?php echo $form->labelEx($model, 'file'); ?>
+        <?php echo $form->labelEx($model, 'soft'); ?>
         <?php if ($this->action->id == 'update'):?>
-            <?php echo CHtml::textField( 'file',$model->file, array('readonly' => true,'size' => 20,)); ?>
+            <?php echo CHtml::textField( 'soft_file',$model->soft, array('readonly' => true,'size' => 20,)); ?>
         <?php endif; ?>
-        <?php echo $form->fileField($model,'file')?>
-        <?php echo $form->error($model, 'file'); ?>
+        <?php echo $form->fileField($model,'soft_file')?>
+        <?php echo $form->error($model, 'soft_file'); ?>
     </div>
     <div class="row">
 
-        <?php echo $form->labelEx($model, 'images') . '(温馨提示：拖拽图片可自由排序)'; ?>
+        <?php echo $form->labelEx($model, 'images'); ?>
         <?php $this->widget('FImges',array('model'=>$model))?>
         <?php echo $form->error($model, 'images'); ?>
     </div>

@@ -366,14 +366,64 @@ class Fircms extends CComponent{
         return serialize($array_c);
     }
 
-    public static function getNovelImageUrl($imageUrl)
+
+
+    public static function formatFileUrl($fileUrl)
     {
-        if (preg_match('/^http:\/\//', $imageUrl) > 0) return $imageUrl;
+        if (preg_match('/^http:\/\//', $fileUrl) > 0) return $fileUrl;
 
         $baseUrl = Yii::app()->baseUrl;
-        if (preg_match('/^\//', $imageUrl) == 0 && preg_match('/\/$/', $baseUrl) == 0) $baseUrl .= '/';
+        if (preg_match('/^\//', $fileUrl) == 0 && preg_match('/\/$/', $baseUrl) == 0) $baseUrl .= '/';
 
-        return $baseUrl . $imageUrl;
+        return $baseUrl . $fileUrl;
+    }
+
+    public static function createFile($upload,$type,$act,$imgurl='',$tembsize=array()){
+        if(isset(Yii::app()->params->uploadPath)){
+            $tempPath=Yii::app()->params->uploadPath;
+        }else{
+            $tempPath='upload';
+        }
+
+        if(!empty($imgurl)&&$act==='update'){
+            $deleteFile=Yii::app()->basePath.'/../'.$imgurl;
+            if(is_file($deleteFile))
+                unlink($deleteFile);
+        }
+        $uploadDir=Yii::app()->basePath.'/../'.$tempPath.'/'.$type.'/'.date('Ymd');
+        self::recursionMkDir($uploadDir);
+        $imgname=date("YmdHis") . '_' . rand(10000, 99999).'.'.$upload->extensionName;
+        //图片存储路径
+        $imageurl=$tempPath.'/'.$type.'/'.date('Ymd').'/'.$imgname;
+        //存储绝对路径
+        $uploadPath=$uploadDir.'/'.$imgname;
+
+
+        if($upload->saveAs($uploadPath)){
+            if(count($tembsize)==2 ){
+                $thumb = Yii::app()->phpThumb->create($uploadPath);
+                $thumb->resize($tembsize[0],$tembsize[1]);
+                $thumb->save($uploadPath);
+            }
+            return $imageurl;
+        }else{
+            return null;
+        }
+
+
+    }
+
+
+
+    private static function recursionMkDir($dir){
+        if(!is_dir($dir)){
+            if(!is_dir(dirname($dir))){
+                self::recursionMkDir(dirname($dir));
+                mkdir($dir,'0777');
+            }else{
+                mkdir($dir,'0777');
+            }
+        }
     }
 
 }

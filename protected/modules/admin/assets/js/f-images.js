@@ -94,6 +94,7 @@ function delectli() {
 }
 KindEditor.ready(function(K) {
     var images_editor = K.editor({
+        imageSizeLimit:'3MB',
         'uploadJson': './index.php?r=admin/upload/kupload',
         'extraFileUploadParams':{
             'YII_CSRF_TOKEN':''+$("input[name='YII_CSRF_TOKEN']").val()+''
@@ -119,24 +120,5 @@ KindEditor.ready(function(K) {
             });
         });
     });
-    K('#imagesmanager').click(function() {
-        images_editor.loadPlugin('filemanager', function() {
-            images_editor.plugin.filemanagerDialog({
-                viewType: 'VIEW',
-                dirName: 'image',
-                clickFn: function(url, title) {
-                    url = K.formatUrl(url, 'relative');
-                    var div = K('#sortable');
-                    images = $('#Post_images').attr('value');
-                    if (images.indexOf(url) < 0) {
-                        div.append('<li class=\"ui-state-default\"><img src=\"' + url + '\"><input type=\"text\" value=\"undefined\" ><span class=\"delectli\"></span></li>');
-                        $('#Post_images').val(images + '{img}{src}' + url + '{/src}{text}' + undefined + '{/text}{/img}');
-                    }
-                    sortableinput();
-                    delectli();
-                    images_editor.hideDialog();
-                }
-            });
-        });
-    });
+
 });

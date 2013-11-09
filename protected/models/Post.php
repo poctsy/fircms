@@ -24,7 +24,7 @@
  * @property string $create_time
  * @property string $content
  * @property string $images
- * @property string $file
+ * @property string $soft
  *
  */
 class Post extends FActiveRecord {
@@ -35,6 +35,8 @@ class Post extends FActiveRecord {
 
 
     public $catalog_id;
+    public $thumb_file;
+    public $soft_file;
 
 
     public function tableName() {
@@ -49,7 +51,7 @@ class Post extends FActiveRecord {
         // will receive user inputs.
         return array(
 
-            array('catalog_id,content,images,file ','safe'),
+            array('catalog_id,content,images,soft ','safe'),
             array('title,catalog_id', 'required'),
             array('user_id, view_count,catalog_id', 'numerical', 'integerOnly'=>true),
 
@@ -58,10 +60,20 @@ class Post extends FActiveRecord {
             array('keyword, description', 'length', 'max'=>30),
 
             array('title,, title_s,thumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
-            array('content,images,file', 'filter', 'filter' => array($this, 'contentPurify')),
+            array('content,images,soft', 'filter', 'filter' => array($this, 'contentPurify')),
 
             // @todo Please remove those attributes that should not be searched.
             array('id,title, content,thumb,catalog_id', 'safe', 'on' => 'search'),
+            array('thumb_file', 'file', 'allowEmpty'=>true,
+                'types'=>'jpg, jpeg, gif, png',
+                'maxSize' => 1024 * 1024 * 3, // 3MB         以字节计算 b  kb mb
+                'tooLarge'=>'上传文件超过 3MB，无法上传',
+            ),
+            array('soft_file', 'file', 'allowEmpty'=>true,
+                'types'=>'zip,rar,exe',
+                'maxSize' => 1024 * 1024 * 20, // 1MB
+                'tooLarge'=>'上传文件超过 20MB，无法上传',
+            ),
         );
     }
 
@@ -91,7 +103,7 @@ class Post extends FActiveRecord {
             'description' => 'SEO描述',
             'content' => '内容',
             'images' => '图片',
-            'file' => '文件地址',
+            'soft' => '文件',
 
         );
     }
@@ -116,7 +128,7 @@ class Post extends FActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('catalog_id', $this->catalog_id, true);
         $criteria->compare('content', $this->content, true);
-        $criteria->compare('thumb', $this->file, true);
+        $criteria->compare('thumb', $this->thumb, true);
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(

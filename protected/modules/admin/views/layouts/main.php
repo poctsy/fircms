@@ -30,15 +30,15 @@
         <?php $this->widget('zii.widgets.CMenu',array(
             'items'=>array(
                 array('label'=>'首页', 'url'=>array('/admin'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'栏目', 'url'=>array('/admin/catalog/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'内容', 'url'=>array('/admin/post/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'单页', 'url'=>array('/admin/page/admin'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'文件', 'url'=>array('/admin/upload/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>"留言", 'url'=>array('/admin/message/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>"反馈", 'url'=>array('/admin/feedback/admin'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'栏目', 'url'=>array('/admin/catalog/admin'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>"导航", 'url'=>array('/admin/navigation/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'用户', 'url'=>array('/admin/user/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'权限', 'url'=>array('/rights'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'文件', 'url'=>array('/admin/upload/admin'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>"导航", 'url'=>array('/admin/navigation/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>"配置", 'url'=>array('/admin/config/admin'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'登陆', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'退出'.' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),

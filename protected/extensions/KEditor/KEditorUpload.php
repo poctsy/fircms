@@ -6,7 +6,6 @@ class KEditorUpload extends CAction {
         $dir = isset($_GET['dir']) ? trim($_GET['dir']) : 'file';
         $ext_arr = array(
             'image' => array('gif', 'jpg', 'jpeg', 'png', 'bmp'),
-            'thumb' => array('gif', 'jpg', 'jpeg', 'png', 'bmp'),
             'flash' => array('swf', 'flv'),
             'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
             'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2'),
@@ -48,33 +47,13 @@ class KEditorUpload extends CAction {
             $uploadfile = $upload_dir . '/' . $filename . '.' . $ext;
             $originalurl = $upload_url . '/' . $filename . '.' . $ext;
             $upload_image->saveAs($uploadfile);
-            if ($dir == 'thumb') {
-                $thumb_upload_dir = dirname(dirname($upload_dir)) . '/thumb';
 
-                if (!file_exists($thumb_upload_dir))
-                    mkdir($thumb_upload_dir);
-                $thumb_upload_dir = $thumb_upload_dir . '/' . $date;
-                if (!file_exists($thumb_upload_dir))
-                    mkdir($thumb_upload_dir);
-
-                $bigimages=dirname(dirname(Yii::app()->basePath)).$originalurl;
-
-                $thumb = Yii::app()->phpThumb->create($bigimages);
-                $thumb->resize(Yii::app()->config->get('thumbWidth'),Yii::app()->config->get('thumbHeight'));
-                $thumburl = $thumb_upload_dir . '/' . $filename . '.' . $ext;
-                $thumb->save($thumburl);
-
-            }
 
             $upload=new Upload;
             $upload->type=$dir;
             $upload->name=$filename;
             $relativeUploadfile=str_replace(Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR,'',$uploadfile);
-            if($dir == 'thumb'){
-                $upload->path= str_replace('/image/','/thumb/',$relativeUploadfile);
-            }else{
-                $upload->path=$relativeUploadfile;
-            }
+
 
             $upload->save();
             echo CJSON::encode(array('error' => 0, 'url' => $originalurl));

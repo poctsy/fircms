@@ -11,7 +11,7 @@ class KEditorManage extends CAction{
 		
 		//目录名
 		$dir_name = empty($_GET['dir']) ? '' : trim($_GET['dir']);
-		if (!in_array($dir_name, array('','thumb', 'image', 'flash', 'media', 'file'))) {
+		if (!in_array($dir_name, array('', 'image', 'flash', 'media', 'file'))) {
 			echo "Invalid Directory name.";
 			exit;
 		}

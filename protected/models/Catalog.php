@@ -34,11 +34,8 @@ class Catalog extends FActiveRecord {
 
     const LEVEL = "……";
     public $_rootName="顶级分类";
-
-
-
     public $parent;
-
+    public $thumb_file;
 
     public function tableName() {
         return '{{catalog}}';
@@ -84,6 +81,11 @@ class Catalog extends FActiveRecord {
 
             array('id,lft, rgt, level,name,title_s, keyword, description, show_type, url, content,list_view,page_view, content_view', 'safe', 'on' => 'search'),
 
+            array('thumb_file', 'file', 'allowEmpty'=>true,
+                'types'=>'jpg, jpeg, gif, png',
+                'maxSize' => 1024 * 1024 * 3, // 1MB         以字节计算 b  kb mb
+                'tooLarge'=>'上传文件超过 3MB，无法上传',
+            ),
         );
     }
 

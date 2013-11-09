@@ -18,6 +18,7 @@ class FKe extends CWidget
                 // 'fileManagerJson' => Yii::app()->createUrl('attachment/upload/kmanageJson'),
                 'newlineTag' => 'br',
                 'urlType'=>'relative',
+                'imageSizeLimit'=>'3MB',
                 //传值前加js:来标记这些是js代码
                 'afterCreate' => "js:function() {
 						K('#ChapterForm_all_len').val(this.count());
