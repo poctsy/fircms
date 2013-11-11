@@ -3,12 +3,12 @@
 /* @var $model Message */
 
 $this->breadcrumbs=array(
-    '留言'=>array('admin'),
-	'管理留言',
+    '信息'=>array('admin'),
+	'管理信息',
 );
 
 $this->menu=array(
-    array('label'=>'管理留言', 'url'=>array('admin')),
+    array('label'=>'管理信息', 'url'=>array('admin')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -33,28 +33,39 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'message-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'content',
-		'name',
-		'email',
-		'phone',
-        'status',
+        array(
+            'name'=>'id',
+            'header'=>'#',
+            'htmlOptions'=>array('width'=>50),
+        ),
+
+        array(
+            'name'=>'from_user_id',
+            'htmlOptions'=>array('width'=>50),
+        ),
+        array(
+            'name'=>'to_user_id',
+            'htmlOptions'=>array('width'=>50),
+        ),
+        array('name'=>'status',
+            'htmlOptions'=>array('width'=>160),
+            'value'=>'$data->statusLookup()',
+            'filter'=>Message::getAllStatus()),
+        array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
         array('name'=>'create_time','type'=>'datetime'),
-     array(
-			'class'=>'CButtonColumn',
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
             'template' => '{update},{delete}',
-            'updateButtonImageUrl' => false,
-            'deleteButtonImageUrl' => false,
-		),
-		array(
-			'class'=>'CButtonColumn',
-		),
+
+
+        ),
+
 	),
 )); ?>

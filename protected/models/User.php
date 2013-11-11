@@ -82,7 +82,7 @@ class User extends FActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'id',
+            'id' => 'ID',
             'username' => '帐号',
             'password' => '密码',
             'salt' => 'Salt',

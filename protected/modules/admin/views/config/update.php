@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Config <?php echo $model->key; ?></h1>
+
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

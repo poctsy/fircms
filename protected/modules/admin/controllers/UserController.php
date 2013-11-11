@@ -12,10 +12,9 @@ class UserController extends FAdminController {
 
     public function filters() {
         return array(
-            'rights',
+            array('auth.filters.AuthFilter'),
         );
     }
-
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.

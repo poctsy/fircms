@@ -6,54 +6,22 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'id'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'thumb'); ?>
-		<?php echo $form->textField($model,'thumb',array('size'=>60,'maxlength'=>130)); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'title'); ?>
+<?php echo $form->textFieldControlGroup($model, 'subtitle'); ?>
+    <?php echo $form->textFieldControlGroup($model, 'content'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'keyword'); ?>
-		<?php echo $form->textField($model,'keyword',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'url'); ?>
-		<?php echo $form->textField($model,'url',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'view'); ?>
-		<?php echo $form->textField($model,'view',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+    <?php echo TbHtml::formActions(array(
+        TbHtml::submitButton( '搜索'),
+    )); ?>
 
 <?php $this->endWidget(); ?>
 

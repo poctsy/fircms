@@ -40,13 +40,17 @@ $('.search-form form').submit(function(){
  
 
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
 	'columns'=>array(
-		'id',
+        array(
+            'name'=>'id',
+            'header'=>'#',
+            'htmlOptions'=>array('width'=>50),
+        ),
 		'username',
 		'email',
                 array(
@@ -58,10 +62,9 @@ $('.search-form form').submit(function(){
 
                 'last_login_ip',
               array(
-            'class' => 'CButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{update},{delete}',
-            'updateButtonImageUrl' => false,
-            'deleteButtonImageUrl' => false,
+
         ),
 	),
 )); ?>

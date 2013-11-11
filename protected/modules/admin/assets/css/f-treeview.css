@@ -1,0 +1,39 @@
+.treeview .hover{
+    color:#000000;
+}
+
+
+.treeview .hitarea {
+    background-image: url(../images/f-treeview.gif);
+}
+.treeview li{
+    list-style: none;
+    background-image: url(../images/f-treeview.gif);
+    background-image:none;
+    border-top: 1px solid #dddddd;
+    border-color:#dddddd;
+}
+.treeview li.lastExpandable{
+    background-image: url(../images/f-treeview.gif);
+}
+.treeview li.lastCollapsable{
+    background-image: url(../images/f-treeview.gif);
+}
+.treeview ul{
+    clear: both;
+}
+.treeview .header li{
+    border:none;
+    float: left;
+}
+.treeview .cudlink{
+    float: right;
+}
+
+.cudlink input{
+    width: 20px;
+    height: 8px;
+    margin-bottom: -2px;
+    margin-right: 8px;
+    font-size: 100%;
+}

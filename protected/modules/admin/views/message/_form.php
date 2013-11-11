@@ -6,7 +6,8 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'id'=>'message-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
@@ -15,61 +16,28 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-
-
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'content'); ?>
-	</div>
+    <?php echo $form->textAreaControlGroup($model, 'content'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'status'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time'); ?>
-		<?php echo $form->error($model,'create_time'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'create_time'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'from_user_id'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'to_user_id'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'phone'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'email'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'other_contact'); ?>
-		<?php echo $form->textField($model,'other_contact',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'other_contact'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id',array('size'=>11,'maxlength'=>11)); ?>
-		<?php echo $form->error($model,'user_id'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'other_contact'); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? '创建' : '保存'); ?>
-	</div>
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('重填'),
+)); ?>
 
 <?php $this->endWidget(); ?>
 

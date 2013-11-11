@@ -19,7 +19,7 @@ class FImges extends CWidget
         else
             $cs->registerScriptFile($baseUrl . '/kindeditor-min.js');
 
-        $cs->registerCssFile(Yii::app()->getModule('admin')->getAssetsUrl() . '/css/f-images.css');
+        $cs->registerCssFile(Yii::app()->getModule('admin')->getAssetsUrl() . '/css/f-imagesview.css');
         $cs->registerScriptFile(Yii::app()->getModule('admin')->getAssetsUrl() . '/js/f-images.js');
 
 
@@ -35,20 +35,19 @@ class FImges extends CWidget
 
     public function renderImages(){
 
-  $html=<<<EOF
-        <div id='imagesnow' style='width: 100%;height:260px; border:1px dashed slategray;overflow-x:scroll;' onload="startimagesnow">
+        $html=<<<EOF
+        <div id='imagesnow' style='display:none;min-height:330px;border:1px dashed slategray;overflow-x:scroll;' onload="startimagesnow">
     <ul id="sortable"></ul>
 </div>
 EOF;
 
 
-
-echo $html;
-echo CHtml::button("上传图片", array('id' => 'Post_selectImage'));
-
-
- echo CHtml::activeHiddenField($this->model, 'images');
-
+        echo CHtml::openTag('div',array('class'=>'controls'));
+        echo $html;
+        echo TbHtml::button("图片预览", array('id' => 'Post_togglemagesnow'));
+        echo TbHtml::button("上传图片", array('id' => 'Post_selectImage'));
+        echo TbHtml::activeHiddenField($this->model, 'images');
+        echo CHtml::closeTag('div');
     }
 
 }

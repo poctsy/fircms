@@ -17,9 +17,11 @@
  * @property string $title_s
  * @property string $keyword
  * @property string $description
- * @property string $url
+ * @property string $aliases
+ * @property string $subtitle
  * @property string $content
  * @property string $view
+ * @property integer $create_time
  */
 class Page extends CActiveRecord
 {
@@ -41,14 +43,16 @@ class Page extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('title,url','required'),
+            array('title','required'),
 			array('thumb', 'length', 'max'=>130),
-			array('title, title_s,view', 'length', 'max'=>50),
-			array('keyword, description, url', 'length', 'max'=>30),
+			array('title, subtitle,title_s,view', 'length', 'max'=>50),
+			array('keyword, description, aliases', 'length', 'max'=>30),
 			array('content', 'safe'),
+            array('id,create_time','length','max'=>11),
+            array('create_time', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title,content', 'safe', 'on'=>'search'),
+			array('id,create_time,subtitle, title,content', 'safe', 'on'=>'search'),
             array('thumb_file', 'file', 'allowEmpty'=>true,
                 'types'=>'jpg, jpeg, gif, png',
                 'maxSize' => 1024 * 1024 * 3, // 1MB         以字节计算 b  kb mb
@@ -75,12 +79,14 @@ class Page extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+            'create_time' => '时间',
 			'thumb' => '缩略图',
 			'title' => '标题',
             'title_s' => 'SEO标题',
 			'keyword' => 'SEO关键字',
 			'description' => 'SEO描述',
-			'url' => '单页标识符',
+			'aliases' => '目录别名',
+            'subtitle'=>'副标题',
 			'content' => '内容',
 			'view' => '模板',
 		);
@@ -105,10 +111,10 @@ class Page extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+         $criteria->compare('subtitle',$this->subtitle);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('content',$this->content,true);
-
-
+        $criteria->compare('create_time',$this->create_time);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

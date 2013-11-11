@@ -3,12 +3,12 @@
 /* @var $model Message */
 
 $this->breadcrumbs=array(
-    '留言'=>array('admin'),
-    '更新留言',
+    '信息'=>array('admin'),
+    '更新信息',
 );
 
 $this->menu=array(
-	array('label'=>'管理留言', 'url'=>array('admin')),
+	array('label'=>'管理信息', 'url'=>array('admin')),
 );
 ?>
 

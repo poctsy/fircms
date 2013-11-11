@@ -16,9 +16,8 @@ $cs1 = Yii::app()->getClientScript();
 $cs1->registerCoreScript('jquery');
 $cs1->registerScriptFile( Yii::app()->getModule('admin')->getAssetsUrl() . '/js/lib/jquery.treeview/jquery.treeview.js');
 $cs1->registerScriptFile( Yii::app()->getModule('admin')->getAssetsUrl(). '/js/lib/jquery.cookie.js');
-
 $cs1->registerCssFile( Yii::app()->getModule('admin')->getAssetsUrl() . '/js/lib/jquery.treeview/jquery.treeview.css' );
-
+$cs1->registerCssFile( Yii::app()->getModule('admin')->getAssetsUrl() . '/css/f-treeview.css' );
 $csrfTokenName = Yii::app()->request->csrfTokenName;
 $csrfToken = Yii::app()->request->csrfToken;
 

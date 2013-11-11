@@ -9,6 +9,7 @@ $(function() {
     startimagesnow();
     sortableinput();
     delectli();
+    togglemagesnow();
     $('#sortable').sortable({
         sort: function(event, ui) {
             ui.item.attr('id', 'sortactive');
@@ -78,6 +79,14 @@ function startimagesnow() {
         div.append(treeoval);
     });
 }
+
+function togglemagesnow() {
+    $('#Post_togglemagesnow').click(function(){
+        $('#imagesnow').toggle();
+    })
+
+}
+
 function delectli() {
     delect = $('.delectli').click(function() {
         imgsrc = $(this).prev().prev().attr('src');

@@ -10,7 +10,9 @@ class PostController extends FController
 
 
     public function filters() {
-        return array( 'rights', );
+        return array(
+            array('auth.filters.AuthFilter'),
+        );
     }
 
 	/**

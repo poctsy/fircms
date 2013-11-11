@@ -1,5 +1,5 @@
 <?php
-//留言系统 的留言内容可以显示在页面
+//会员站内信模块
 /**
 * @author   poctsy  <poctsy@foxmail.com>
 * @copyright Copyright (c) 2013 poctsy
@@ -11,13 +11,11 @@ class MessageController extends FAdminController
 
 	public $layout='application.modules.admin.views.layouts.column2';
 
-        public function filters()
-        {
-            return array(
-                    'rights',
-                );
-        }
-          
+    public function filters() {
+        return array(
+            array('auth.filters.AuthFilter'),
+        );
+    }
        
 	/**
 	 * Creates a new model.
@@ -79,7 +77,20 @@ class MessageController extends FAdminController
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
+    /**
+     * Manages all models.
+     */
+    public function actionIndex()
+    {
+        $model=new Message('search');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Message']))
+            $model->attributes=$_GET['Message'];
 
+        $this->render('index',array(
+            'model'=>$model,
+        ));
+    }
 
 	/**
 	 * Manages all models.

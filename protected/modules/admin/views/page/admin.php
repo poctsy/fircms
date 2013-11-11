@@ -35,18 +35,25 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'page-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'title',
         array(
-            'class'=>'CButtonColumn',
+            'name'=>'id',
+            'header'=>'#',
+            'htmlOptions'=>array('width'=>50),
+        ),
+		'title',
+        array('name'=>'create_time',
+            'htmlOptions'=>array('style'=>'width: 200px;'),
+            'type'=>'datetime'),
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
             'template' => '{update},{delete}',
-            'updateButtonImageUrl' => false,
-            'deleteButtonImageUrl' => false,
+
+
         ),
 	),
 )); ?>

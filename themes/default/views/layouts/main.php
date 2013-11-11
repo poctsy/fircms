@@ -1,57 +1,72 @@
-<?php /* @var $this Controller */ ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
-
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/form.css" />
-
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <meta charset="utf-8">
+    <?php Yii::app()->bootstrap->register(); ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/prettify.css" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/holder/2.0/holder.js"></script>
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 
 <body>
+<?php Yii::app()->ClientScript->registerCss(
+    $this->id.$this->action->id,'
+body {
+ font-family: 微软雅黑, Verdana, sans-serif, 宋体;
+}
 
-<div class="container" id="page">
+')?>
+<body>
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+<!-- Navbar -->
+<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+    'brandLabel' =>CHtml::image(Yii::app()->theme->baseUrl.'/images/logo-navbar.png') . "Fircms ",
+    'collapse' => true,
+    'items' => array(
+        array(
+            'class' => 'bootstrap.widgets.TbNav',
+            'items' => array(
+                array('label' => '首页', 'url' => array('site/index')),
+                array('label' => '文档', 'items' => array(
+    array('label' => '教程', 'url' => 'http://www.yiiframework.com/doc/guide'),
+    array('label' => 'api', 'url' => 'http://www.yiiframework.com/doc/api'),
+    array('label' => 'yiistrap', 'url' => 'http://www.getyiistrap.com/site/widgets'),
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'首页', 'url'=>array('/site/index')),
-				array('label'=>'登陆', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'退出 ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'后台管理', 'url'=>array('/admin'), 'visible'=>Yii::app()->user->checkAccess('GeneralAdmin'))
+),),
+            ),
+        ),
+        array(
+            'class'=>'bootstrap.widgets.TbNav',
+            'encodeLabel'=>false,
+            'htmlOptions'=>array('class'=>'pull-right'),
+            'items'=>array(
+                array('label'=>'您好, '.Yii::app()->user->name.' 后台管理 &nbsp;&nbsp;', 'url'=>array('/admin/default/index'),'linkOptions'=>array('style'=>'padding-right:0px;'), 'visible'=>Yii::app()->user->checkAccess('Admin')),
+                array('label'=>'登陆', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>'<i class="icon-off"></i>[退出]', 'url'=>array('/site/logout'),'linkOptions'=>array('style'=>'padding-left:0px;'), 'visible'=>!Yii::app()->user->isGuest),
+            )
+        )
+    ),
+));
+?>
 
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
 
-	<?php echo $content; ?>
 
-	<div class="clear"></div>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+        <?php echo $content; ?>
+
+
+<div style="min-height:50px"></div>
+<footer class="footer" style="text-align: center;">
+    Copyright &copy; <?php echo date('Y'); ?> by poctsy.
+    All Rights Reserved.Powered by fircms.com
+</footer><!-- footer -->
 
 </div><!-- page -->
 

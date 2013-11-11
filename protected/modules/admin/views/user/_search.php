@@ -6,81 +6,30 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+    <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+     'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-            <p>可以使用一个比较运算符（<，>，> < =，=，< >或=）来缩小搜索范围。</p>
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'id'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'username'); ?>
 
- 
+    <?php echo $form->textFieldControlGroup($model, 'email'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>250)); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'realname'); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'province'); ?>
 
- 
+    <?php echo $form->textFieldControlGroup($model, 'city'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'last_login_ip'); ?>
-		<?php echo $form->textField($model,'last_login_ip',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
- 
+    <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'realname'); ?>
-		<?php echo $form->textField($model,'realname',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'province'); ?>
-		<?php echo $form->textField($model,'province',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'city'); ?>
-		<?php echo $form->textField($model,'city',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'company'); ?>
-		<?php echo $form->textField($model,'company',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'weibo'); ?>
-		<?php echo $form->textField($model,'weibo',array('size'=>60,'maxlength'=>100)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'qq'); ?>
-		<?php echo $form->textField($model,'qq',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'profile'); ?>
-		<?php echo $form->textArea($model,'profile',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('搜索'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'profile'); ?>
+    <?php echo TbHtml::formActions(array(
+        TbHtml::submitButton( '搜索'),
+    )); ?>
 
 <?php $this->endWidget(); ?>
 

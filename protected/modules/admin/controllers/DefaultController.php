@@ -15,7 +15,9 @@ class DefaultController extends FAdminController
 	 */
 
     public function filters() {
-        return array( 'rights', );
+        return array(
+            array('auth.filters.AuthFilter'),
+        );
     }
 	/**
 	 * This is the default 'index' action that is invoked

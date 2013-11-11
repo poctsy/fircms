@@ -18,6 +18,8 @@
  * @property string $keyword
  * @property string $description
  * @property string $show_type
+ * @property string $aliases
+ * @property string $subtitle
  * @property string $url
  * @property text  $content
  * @property string $list_view
@@ -68,18 +70,21 @@ class Catalog extends FActiveRecord {
         return array(
             array('parent,name,thumb,show_type', 'safe',),
 
-            array('parent', 'required', 'on' => 'catalogupdate'),
-            array('name,url,show_type', 'required'),
+            array('parent,name,show_type', 'required'),
 
+            array('aliases','unique'),
+
+           // array('aliases','type','type'=>'string'),
 
             array('parent,', 'numerical', 'integerOnly' => true),
-            array(' keyword,,show_type description, url', 'length', 'max' => 30),
-            array('title_s,list_view,page_view,content_view', 'length', 'max' => 50),
+
+            array(' keyword,,show_type description,url,aliases', 'length', 'max' => 30),
+            array('title_s,list_view,page_view,subtitle,content_view', 'length', 'max' => 50),
 
             array('content', 'filter', 'filter' => array($this, 'contentPurify')),
-            array('name,title_s, keyword, description,content, list_view,page_view,content_view', 'filter', 'filter' => array($this, 'Purify')),
+            array('name,title_s,subtitle, keyword, description,content, list_view,page_view,content_view', 'filter', 'filter' => array($this, 'Purify')),
 
-            array('id,lft, rgt, level,name,title_s, keyword, description, show_type, url, content,list_view,page_view, content_view', 'safe', 'on' => 'search'),
+            array('id,name,title_s, keyword, description, show_type, aliases, content', 'safe', 'on' => 'search'),
 
             array('thumb_file', 'file', 'allowEmpty'=>true,
                 'types'=>'jpg, jpeg, gif, png',
@@ -107,14 +112,16 @@ class Catalog extends FActiveRecord {
         return array(
             'parent' => '所属分类',
             'name'=>'栏目名称',
-            'url' => '栏目标识符',
+            'aliases' => '目录别名',
+            'subtitle'=>'副标题',
+            'url' => '跳转网址',
             'thumb' => '缩略图',
             'title_s' => 'SEO标题',
             'keyword' => 'SEO关键字',
             'description' => 'SEO描述',
             'show_type' => '显示方式',
             'list_view' => '列表模板',
-            'page_view'=>'单页模板',
+            'page_view'=>'封面模板',
             'content_view' => '内容模板',
             'content' => '栏目简介',
         );
@@ -144,13 +151,12 @@ class Catalog extends FActiveRecord {
 
         $criteria = new CDbCriteria;
         $criteria->compare('title_s', $this->title_s, true);
+        $criteria->compare('subtitle', $this->subtitle, true);
+
         $criteria->compare('keyword', $this->keyword, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('show_type', $this->show_type);
-        $criteria->compare('url', $this->url, true);
-        $criteria->compare('list_view', $this->list_view, true);
-        $criteria->compare('page_view', $this->page_view, true);
-        $criteria->compare('content_view', $this->content_view, true);
+        $criteria->compare('aliases', $this->aliases, true);
         $criteria->compare('content', $this->content, true);
 
 
@@ -177,6 +183,12 @@ class Catalog extends FActiveRecord {
 
 
     public static function printTree() {
+        echo CHtml::openTag('ul',array('class'=>'header'));
+        echo CHtml::openTag('li');
+        echo "栏目";
+        echo CHtml::closeTag('li');
+
+        echo CHtml::closeTag('ul');
         if(Catalog::model()->count() <2)
             return;
         $rootId=Catalog::model()->roots()->find()->id;
@@ -185,14 +197,14 @@ class Catalog extends FActiveRecord {
         $criteria->addNotInCondition('id', array($rootId));
         $criteria->order = "lft";
         $catalogs= Catalog::model()->findAll($criteria);
-
-
         $level = 0;
+
 
         foreach ($catalogs as $n => $catalog) {
 
-            if ($catalog->level == $level)
-                echo CHtml::closeTag('li') . "\n";
+            if ($catalog->level == $level){
+
+                echo CHtml::closeTag('li') . "\n";}
             else if ($catalog->level > $level)
                 echo CHtml::openTag('ul') . "\n";
             else {
@@ -207,16 +219,29 @@ class Catalog extends FActiveRecord {
             echo CHtml::openTag('li', array('id' => 'catalog_' . $catalog->id, 'rel' => $catalog->name));
             echo CHtml::openTag('span');
             echo CHtml::encode($catalog->name);
-            echo CHtml::decode('&nbsp;&nbsp;&nbsp;') . CHtml::encode('[ID:' . $catalog->id . ']');
+            echo CHtml::decode('&nbsp;&nbsp;&nbsp;') . CHtml::encode('[#' .( !empty($catalog->aliases) ? $catalog->aliases :$catalog->id) . ']');
             echo CHtml::closeTag('span');
             echo CHtml::openTag('span', array('class' => 'cudlink'));
-            echo CHtml::Link('(上移', Yii::app()->createUrl("admin/catalog/prevup", array("id" => $catalog->id)));
-            echo CHtml::Link('下移)', Yii::app()->createUrl("admin/catalog/nextup", array("id" => $catalog->id)));
-            echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/catalog/update", array("id" => $catalog->id))));
-            echo CHtml::encode("更新");
+
+
+            echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/catalog/prevup",array("id" => $catalog->id)),'title'=>'上移'));
+            echo CHtml::decode("<i class='icon-arrow-up'></i>");
             echo CHtml::closeTag('a');
-            echo CHtml::openTag('a', array("class" => "delete", 'href' => Yii::app()->createUrl("admin/catalog/delete", array("id" => $catalog->id))));
-            echo CHtml::encode("删除");
+
+            echo ',';
+
+            echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/catalog/nextup",array("id" => $catalog->id)),'title'=>'下移'));
+            echo CHtml::decode("<i class='icon-arrow-down'></i>");
+            echo CHtml::closeTag('a');
+
+
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+            echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/catalog/update",array("id" => $catalog->id)),'title'=>'更新'));
+            echo CHtml::decode("<i class='icon-pencil'></i>");
+            echo CHtml::closeTag('a');
+            echo ',';
+            echo CHtml::openTag('a', array("class" => "delete", 'href' => Yii::app()->createUrl("admin/catalog/delete",array("id" => $catalog->id)),'title'=>'删除'));
+            echo CHtml::decode("<i class='icon-trash'></i>");
             echo CHtml::closeTag('a');
             echo CHtml::closeTag('span');
 
@@ -230,6 +255,7 @@ class Catalog extends FActiveRecord {
             echo CHtml::closeTag('li') . "\n";
             echo CHtml::closeTag('ul') . "\n";
         }
+
     }
 
     public static function printTree_noAnchors() {
@@ -257,7 +283,7 @@ class Catalog extends FActiveRecord {
 
         for ($i = $level; $i; $i--) {
             echo CHtml::closeTag('li') . "\n";
-            echo CHtml::closeTag('ul') . "\n";
+            echo CHtml::closeTag('div') . "\n";
         }
     }
 
@@ -322,13 +348,15 @@ class Catalog extends FActiveRecord {
     }
 
     public function nameGet($name){
-        $catalg=Catalog::model()->find('url=?',array($name));
+        $catalg=Catalog::model()->find('aliases=?',array($name));
         return $catalg;
     }
 
     public function getAllShow_type(){
-        return array('list'=>'列表','page'=>'单页');
-
+        return array('0'=>'列表','1'=>'封面','2'=>'链接');
     }
+
+
+
 
 }

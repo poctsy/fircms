@@ -7,10 +7,9 @@
 <div class="form">
 
 
-
-
     <?php
-    $form = $this->beginWidget('CActiveForm', array(
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         'id' => 'post-form',
         // Please note: When you enable ajax validation, make sure the corresponding
         // controller action is handling ajax validation correctly.
@@ -18,6 +17,7 @@
         // See class documentation of CActiveForm for details on this.
         'enableAjaxValidation' => false,
         'htmlOptions'=>array('enctype' => 'multipart/form-data'),
+
     ));
     ?>
 
@@ -25,30 +25,25 @@
 
     <?php echo $form->errorSummary($model); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'catalog_id'); ?>
-        <?php
-        echo $form->dropDownList($model, 'catalog_id',Catalog::selectTree());
+    <?php echo $form->dropDownListControlGroup($model, 'catalog_id',Catalog::selectTree()); ?>
 
-        ?>
+    <?php echo $form->textFieldControlGroup($model, 'title'); ?>
 
-        <?php echo $form->error($model, 'catalog_id'); ?>
-    </div>
+    <?php echo $form->textFieldControlGroup($model, 'subtitle'); ?>
 
+    <div class="control-group">
+        <?php echo $form->labelEx($model, 'thumb',array('class'=>"control-label")); ?>
+        <div class="controls" >
 
+            <?php if ($this->action->id == 'update'  && $model->thumb !='' ){
+                echo TbHtml::image($model->thumb,'',array('style'=>"width:60px;height:60px"));}
+            else{
+                echo TbHtml::image(Yii::app()->getModule('admin')->getAssetsUrl().'/images/image.png','',array('style'=>"width:60px;height:60px"));
+            }
+            ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'title'); ?>
-        <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 100)); ?>
-        <?php echo $form->error($model, 'title'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'thumb'); ?>
-        <?php if ($this->action->id == 'update'  && $model->thumb !='' ):?>
-            <?php echo CHtml::image($model->thumb,'',array('style'=>"width:150px;height:150px"));?>
-        <?php endif; ?>
-        <?php echo $form->fileField($model,'thumb_file')?>
+            <?php echo $form->fileField($model,'thumb_file')?>
+        </div>
         <?php echo $form->error($model, 'thumb_file'); ?>
     </div>
 
@@ -56,53 +51,45 @@
 
 
 
-    <div class="row">
+    <div class="control-group">
 
-        <?php echo $form->labelEx($model, 'soft'); ?>
-        <?php if ($this->action->id == 'update'):?>
-            <?php echo CHtml::textField( 'soft_file',$model->soft, array('readonly' => true,'size' => 20,)); ?>
-        <?php endif; ?>
+        <?php echo $form->labelEx($model, 'soft',array('class'=>"control-label")); ?>
+        <div class="controls">
+        <?php if ($this->action->id == 'update'){
+            echo TbHtml::textField( 'soft_file',$model->soft, array('readonly' => true,)); }
+         else{
+         echo TbHtml::textField( 'soft_file',$model->soft, array('readonly' => true,));
+        } ?>
         <?php echo $form->fileField($model,'soft_file')?>
+        </div>
         <?php echo $form->error($model, 'soft_file'); ?>
     </div>
-    <div class="row">
 
-        <?php echo $form->labelEx($model, 'images'); ?>
+    <div class="control-group">
+
+        <?php echo $form->labelEx($model, 'images',array('class'=>"control-label")); ?>
         <?php $this->widget('FImges',array('model'=>$model))?>
         <?php echo $form->error($model, 'images'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'content'); ?>
+    <div class="control-group">
+        <?php echo $form->labelEx($model, 'content',array('class'=>"control-label")); ?>
         <?php  $this->widget('FKe', array('model'=>$model));?>
         <?php echo $form->error($model, 'content'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'title_s'); ?>
-        <?php echo $form->textField($model, 'title_s', array('size' => 60, 'maxlength' => 100)); ?>
-        <?php echo $form->error($model, 'title_s'); ?>
-    </div>
+    <?php echo $form->textFieldControlGroup($model, 'title_s'); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'keyword'); ?>
-        <?php echo $form->textField($model, 'keyword', array('size' => 30, 'maxlength' => 100)); ?>
-        <?php echo $form->error($model, 'keyword'); ?>
-    </div>
+    <?php echo $form->textFieldControlGroup($model, 'keyword'); ?>
 
 
+    <?php echo $form->textAreaControlGroup($model, 'description'); ?>
 
-    <?php //echo $form->hiddenField($model, 'images', array('size' => 30, 'maxlength' => 30));   ?>
+    <?php echo TbHtml::formActions(array(
+        TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+        TbHtml::resetButton('重填'),
+    )); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows'=>"5", 'cols'=>"90")); ?>
-        <?php echo $form->error($model, 'description'); ?>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? '创建' : '保存'); ?>
-    </div>
 
     <?php $this->endWidget(); ?>
 

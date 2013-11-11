@@ -3,12 +3,12 @@
 /* @var $model Feedback */
 
 $this->breadcrumbs=array(
-    '反馈'=>array('admin'),
-	'管理反馈',
+    '留言'=>array('admin'),
+	'管理留言',
 );
 
 $this->menu=array(
-	array('label'=>'管理反馈', 'url'=>array('admin')),
+	array('label'=>'管理留言', 'url'=>array('admin')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -35,25 +35,40 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'feedback-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-        array('name'=>'category','value'=>'$data->categoryLookup()','filter'=>Feedback::getAllCategory()),
-        array('name'=>'status','value'=>'$data->statusLookup()','filter'=>Feedback::getAllStatus()),
+        array(
+            'name'=>'id',
+            'header'=>'#',
+            'htmlOptions'=>array('width'=>50),
+        ),
+        array('name'=>'category',
+            'htmlOptions'=>array('width'=>160),
+            'value'=>'$data->categoryLookup()',
+            'filter'=>Feedback::getAllCategory()),
+        array(
+            'name'=>'name',
+            'htmlOptions'=>array('width'=>100),
+        ),
+        array('name'=>'status',
+            'htmlOptions'=>array('width'=>160),
+            'value'=>'$data->statusLookup()',
+            'filter'=>Feedback::getAllStatus()),
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
-        'name',
-        'position',
-        array('name'=>'create_time','type'=>'datetime'),
+
+        array('name'=>'create_time',
+            'htmlOptions'=>array('style'=>'width: 200px;'),
+            'type'=>'datetime'),
        array(
-			'class'=>'CButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
             'template' => '{update},{delete}',
-            'updateButtonImageUrl' => false,
-            'deleteButtonImageUrl' => false,
+
+
 		),
 	),
 )); ?>

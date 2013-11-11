@@ -6,24 +6,19 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'key'); ?>
-		<?php echo $form->textField($model,'key',array('size'=>60,'maxlength'=>100)); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'key'); ?>
+    <?php echo $form->textFieldControlGroup($model, 'value'); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'value'); ?>
-		<?php echo $form->textArea($model,'value',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('搜索'); ?>
-	</div>
+    <?php echo TbHtml::formActions(array(
+        TbHtml::submitButton( '搜索'),
+    )); ?>
 
 <?php $this->endWidget(); ?>
 

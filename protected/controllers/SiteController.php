@@ -3,17 +3,31 @@
 class SiteController extends FController
 {
 
-    public function filters() {
-        return array( 'rights', );
+    public function filters()
+    {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+        );
     }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',  // allow all users to perform 'index' and 'view' actions
+                'actions'=>array('index','log','error','login','logout'),
+                'users'=>array('*'),
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+    }
+
     public $layout='//layouts/column1';
     /**
      * Declares class-based actions.
      */
 
-    public function allowedActions() {
-        return 'login,logout,error,index';
-    }
 
 
 	/**
@@ -37,6 +51,7 @@ class SiteController extends FController
 	 */
 	public function actionIndex()
 	{
+        $this->layout='//layouts/column1_index';
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index');
@@ -87,6 +102,7 @@ class SiteController extends FController
 	 */
     public function actionLogin()
     {
+        $this->layout='//layouts/column1_login';
         $model=new LoginForm;
 
         // if it is ajax validation request
@@ -105,10 +121,16 @@ class SiteController extends FController
             if($model->validate() && $model->login()){
                 $user = User::model()->findBypk(Yii::app()->user->id);
                 //记录当前ip 时间,记录过去的时间
+                if(YII_DEBUG == true){
+                	    $user->last_login_ip ='127.0.0.1';
+                	    $user->this_login_ip = '127.0.0.1';
+                	}else{
+                	    $user->last_login_ip = $user->this_login_ip;
+                	    $user->this_login_ip = Yii::app()->request->userHostAddress;
+                	}
                 $user->last_login_time = $user->this_login_time;
-                $user->last_login_ip = $user->this_login_ip;
                 $user->this_login_time = time();
-                $user->this_login_ip = Yii::app()->request->userHostAddress;
+
                 $user->save();
                 $this->redirect(Yii::app()->user->returnUrl);}
         }

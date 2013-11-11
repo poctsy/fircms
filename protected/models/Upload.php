@@ -116,4 +116,11 @@ class Upload extends FActiveRecord
         $cleanHtml = $p->purify($value);
         return $cleanHtml;
     }
+
+    public function getImage(){
+        if($this->type=='file')
+            return Yii::app()->getModule('admin')->getAssetsUrl().'/images/file.png';
+        if($this->type=='thumb' || $this->type=='image')
+            return $this->path;
+    }
 }

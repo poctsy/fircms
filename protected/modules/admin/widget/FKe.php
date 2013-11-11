@@ -6,6 +6,7 @@ class FKe extends CWidget
 
     public function run()
     {
+       echo CHtml::openTag('div',array('class'=>'controls'));
         $this->widget('ext.KEditor.KEditor', array(
             'model' => $this->model, //传入form model
             'name' => 'content', //设置name
@@ -19,6 +20,7 @@ class FKe extends CWidget
                 'newlineTag' => 'br',
                 'urlType'=>'relative',
                 'imageSizeLimit'=>'3MB',
+                'themeType' =>'simple',
                 //传值前加js:来标记这些是js代码
                 'afterCreate' => "js:function() {
 						K('#ChapterForm_all_len').val(this.count());
@@ -33,6 +35,7 @@ class FKe extends CWidget
                 'style' => 'width:98%;height:400px;',
             )
         ));
+        echo CHtml::closeTag('div');
 }
 
 

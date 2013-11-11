@@ -16,6 +16,7 @@
  * @property integer $catalog_id
  * @property string $title
  * @property string $title_s
+ * @property string $subtitle
  * @property string $keyword
  * @property string $thumb
  * @property string $description
@@ -53,13 +54,13 @@ class Post extends FActiveRecord {
 
             array('catalog_id,content,images,soft ','safe'),
             array('title,catalog_id', 'required'),
-            array('user_id, view_count,catalog_id', 'numerical', 'integerOnly'=>true),
-
+            array('user_id, view_count,catalog_id,create_time', 'numerical', 'integerOnly'=>true),
+            array('create_time', 'length',  'max'=>11),
             array('thumb', 'length', 'max'=>100),
-            array('title, title_s', 'length', 'max'=>50),
+            array('title, subtitle,title_s', 'length', 'max'=>50),
             array('keyword, description', 'length', 'max'=>30),
 
-            array('title,, title_s,thumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
+            array('title,subtitle, title_s,thumb,keyword,description ', 'filter', 'filter' => array($this, 'Purify')),
             array('content,images,soft', 'filter', 'filter' => array($this, 'contentPurify')),
 
             // @todo Please remove those attributes that should not be searched.
@@ -94,7 +95,6 @@ class Post extends FActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-
             'catalog_id' => '所属栏目',
             'title' => '标题',
             'title_s' => 'SEO标题',
@@ -103,8 +103,11 @@ class Post extends FActiveRecord {
             'description' => 'SEO描述',
             'content' => '内容',
             'images' => '图片',
+            'subtitle'=>'副标题',
             'soft' => '文件',
-
+            'create_time'=>'创建时间',
+            'thumb_file'=>'缩略图',
+            'soft_file'=>'文件',
         );
     }
 
@@ -125,6 +128,7 @@ class Post extends FActiveRecord {
 
         $criteria = new CDbCriteria;
         $criteria->compare('title', $this->title, true);
+        $criteria->compare('subtitle', $this->subtitle, true);
         $criteria->compare('id', $this->id);
         $criteria->compare('catalog_id', $this->catalog_id, true);
         $criteria->compare('content', $this->content, true);

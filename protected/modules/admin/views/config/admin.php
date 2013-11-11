@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'config-grid',
     //'cssFile'=>Yii::app()->baseUrl."/css/grid.css",
     'summaryText'=>false,
@@ -34,7 +34,7 @@ $('.search-form form').submit(function(){
 		'key',
 		'value',
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
             'template'=>'{update}',
             'updateButtonImageUrl'=>false,
 		),

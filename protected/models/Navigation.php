@@ -18,10 +18,6 @@
  * @property string $name
  * @property string $position
  * @property integer $catalog_id
- * @property integer page_id
- * @property string link
- * @property string module
- * @property string bind_type
  */
 class Navigation extends FActiveRecord {
 
@@ -41,7 +37,6 @@ class Navigation extends FActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'catalog'=>array(self::BELONGS_TO, 'Catalog', 'catalog_id'),
-            'page'=>array(self::BELONGS_TO, 'Page', 'page_id'),
         );
     }
     /**
@@ -52,12 +47,11 @@ class Navigation extends FActiveRecord {
         // will receive user inputs.
         return array(
             array('name,position','required','on'=>'parent'),
-            array('name,parent,root,bind_type','required','on'=>'child'),
+            array('parent,','required','on'=>'child'),
             array('id,position', 'unique'),
-            array('parent,root,bind_type,catalog_id,page_id', 'numerical', 'integerOnly' => true),
-            array('bind_type,catalog_id,page_id', 'length', 'max' => 11),
-            array('position,name,module', 'length', 'max' => 20),
-            array('link', 'length', 'max' =>100),
+            array('parent,root,catalog_id', 'numerical', 'integerOnly' => true),
+            array('catalog_id', 'length', 'max' => 11),
+            array('position,name', 'length', 'max' => 20),
 
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -90,11 +84,7 @@ class Navigation extends FActiveRecord {
             'name'=>'名称',
             'position' => '参数',
             'thumb' => '缩略图',
-            'bind_type'=>'类型',
             'catalog_id' => '栏目',
-            'page_id'=>'单页',
-            'link' => '链接',
-            'module' => '模块',
             'parent'=>'导航条',
         );
     }
@@ -158,7 +148,12 @@ class Navigation extends FActiveRecord {
 
 
     public static function printTree() {
+        echo CHtml::openTag('ul',array('class'=>'header'));
+        echo CHtml::openTag('li');
+        echo "导航";
+        echo CHtml::closeTag('li');
 
+        echo CHtml::closeTag('ul');
         $criteria = new CDbCriteria;
         $criteria->order = "root,lft";
         $navigations = Navigation::model()->findAll($criteria);
@@ -186,18 +181,17 @@ class Navigation extends FActiveRecord {
 
 
             if($navigation->isRoot()){
-                $name=$navigation->name.'    (参数:'.$navigation->position.')';
+                $name=$navigation->name.'    [#'.$navigation->position.']';
                 $updateAction="update";
             }else{
-                // $catalog=Catalog::model()->findByPk($navigation->catalog_id);
-                // $name=$catalog->name;
-                $name=$navigation->name;
+                $catalog=Catalog::model()->findByPk($navigation->catalog_id);
+                $name=$catalog->name;
                 $updateAction="updatechild";
             }
 
             echo CHtml::openTag('li', array('id' => 'node_' . $navigation->id, 'rel' => $name));
             echo CHtml::openTag('span', array('class' => 'name') );
-            echo CHtml::encode($name);
+            echo CHtml::decode('&nbsp;&nbsp;&nbsp;').CHtml::encode($name);
             echo CHtml::decode('&nbsp;&nbsp;&nbsp;');
             echo CHtml::closeTag('span');
 
@@ -205,14 +199,23 @@ class Navigation extends FActiveRecord {
 
             echo CHtml::openTag('span', array('class' => 'cudlink'));
             if(!$navigation->isRoot()){
-                echo CHtml::Link('(上移', Yii::app()->createUrl("admin/navigation/prevup", array("id" => $navigation->id)));
-                echo CHtml::Link('下移)', Yii::app()->createUrl("admin/navigation/nextup", array("id" => $navigation->id)));
+                echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/navigation/prevup", array("id" => $navigation->id)),'title'=>'上移'));
+                echo CHtml::decode("<i class='icon-arrow-up'></i>");
+                echo CHtml::closeTag('a');
+
+                echo ',';
+                echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/navigation/nextup", array("id" => $navigation->id)),'title'=>'上移'));
+                echo CHtml::decode("<i class='icon-arrow-down'></i>");
+                echo CHtml::closeTag('a');
+
             }
-            echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/navigation/".$updateAction, array("id" => $navigation->id))));
-            echo CHtml::encode("更新");
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+            echo CHtml::openTag('a', array('href' => Yii::app()->createUrl("admin/navigation/".$updateAction, array("id" => $navigation->id)),'title'=>'更新'));
+            echo CHtml::decode("<i class='icon-pencil'></i>");
             echo CHtml::closeTag('a');
-            echo CHtml::openTag('a', array("class" => "delete", 'href' => Yii::app()->createUrl("admin/navigation/delete", array("id" => $navigation->id))));
-            echo CHtml::encode("删除");
+            echo ',';
+            echo CHtml::openTag('a', array("class" => "delete", 'href' => Yii::app()->createUrl("admin/navigation/delete", array("id" => $navigation->id)),'title'=>'删除'));
+            echo CHtml::decode("<i class='icon-trash'></i>");
             echo CHtml::closeTag('a');
             echo CHtml::closeTag('span');
 
@@ -296,6 +299,9 @@ class Navigation extends FActiveRecord {
         return Navigation::makeSelectTree(Navigation::model()->findAll(array('order'=>'lft')));
     }
 
+    public function selectTreeChild(){
+        return Navigation::makeSelectTreeChild(Navigation::findAllRoot());
+    }
     public static function nameGet($name){
         $catalg=Navigation::model()->find('position=?',array($name));
         return $catalg;
@@ -312,13 +318,7 @@ class Navigation extends FActiveRecord {
         }
         return $navCatalog;
     }
-    public function getAllModule(){
-        return array('message'=>'留言模块','feedback'=>'反馈模块','special'=>'专题模块');
 
-    }
 
-    public function getAllBind_type(){
-        return array('0'=>'栏目','1'=>'单页','2'=>'模块','3'=>'链接');
 
-    }
 }

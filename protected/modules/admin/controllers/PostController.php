@@ -12,7 +12,7 @@ class PostController extends FAdminController {
 
     public function filters() {
         return array(
-            'rights',
+            array('auth.filters.AuthFilter'),
         );
     }
 

@@ -35,21 +35,30 @@ $('.search-form form').submit(function(){
     )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'post-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-        array('name'=>'catalog_id','value'=>'$data->catalogLookup()','filter'=>Catalog::selectTree()),
+        array(
+            'name'=>'id',
+            'header'=>'#',
+            'htmlOptions'=>array('width'=>50),
+        ),
+        array('name'=>'catalog_id',
+            'htmlOptions'=>array('width'=>160),
+            'value'=>'$data->catalogLookup()',
+            'filter'=>Catalog::selectTree()),
+
         'title',
+        array('name'=>'create_time','type'=>'datetime'),
               array(
-            'class' => 'CButtonColumn',
+            'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{update},{delete}',
-            'updateButtonImageUrl' => false,
-            'deleteButtonImageUrl' => false,
+
+
         ),
 	),
 )); ?>

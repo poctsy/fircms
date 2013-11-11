@@ -1,4 +1,5 @@
 <?php
+//会员站内信模块
 /**
 * @author   poctsy  <poctsy@foxmail.com>
 * @copyright Copyright (c) 2013 poctsy
@@ -16,7 +17,7 @@
  * @property string $content
  * @property integer $status
  * @property integer $create_time
- * @property string $name
+ * @property integer $from_user_id
  * @property string $email
  * @property string $phone
  * @property string $other_contact
@@ -41,12 +42,12 @@ class Message extends FActiveRecord
 		// will receive user inputs.
 		return array(
 			array('content, status, email', 'required'),
-			array('status, create_time', 'numerical', 'integerOnly'=>true),
+			array('status,, from_user_id, to_user_id, create_time', 'numerical', 'integerOnly'=>true),
 			array('name, email, phone, other_contact', 'length', 'max'=>128),
-			array('user_id', 'length', 'max'=>11),
+			//array('from_user_id, to_user_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, content, status, create_time, name, email, phone, other_contact, user_id', 'safe', 'on'=>'search'),
+			array('id, content, status, create_time, from_user_id, to_user_id,email, phone, other_contact, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +72,10 @@ class Message extends FActiveRecord
 			'id' => 'ID',
 			'content' => '内容',
 			'status' => '状态',
-			'create_time' => '留言时间',
+			'create_time' => '时间',
+
+            'from_user_id' => '发信人',
+            'to_user_id' => '收信人',
 			'name' => '名字',
 			'email' => '邮箱',
 			'phone' => '电话',
@@ -102,11 +106,12 @@ class Message extends FActiveRecord
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time);
+        $criteria->compare('from_user_id',$this->from_user_id);
+        $criteria->compare('to_user_id',$this->to_user_id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('other_contact',$this->other_contact,true);
-		$criteria->compare('user_id',$this->user_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -123,4 +128,17 @@ class Message extends FActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function statusLookup(){
+        if($this->status ==1){
+            return "未阅读信息";
+        }else{
+            return "已阅读信息";
+        }
+    }
+
+    public function getAllStatus(){
+        return array('1'=>'未阅读信息','2'=>'已阅读信息');
+
+    }
 }

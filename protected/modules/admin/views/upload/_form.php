@@ -6,7 +6,8 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'id'=>'upload-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
@@ -15,31 +16,18 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-
-
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->textField($model,'type'); ?>
-		<?php echo $form->error($model,'type'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'type'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'name'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'path'); ?>
-		<?php echo $form->textField($model,'path',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'path'); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'path'); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? '创建' : '保存'); ?>
-	</div>
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('重填'),
+)); ?>
 
 <?php $this->endWidget(); ?>
 

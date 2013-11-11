@@ -4,11 +4,11 @@
 
 $this->breadcrumbs=array(
     '文件'=>array('admin'),
-	'管理文件',
+    '管理文件',
 );
 
 $this->menu=array(
-         array('label'=>'管理文件', 'url'=>array('admin')),
+    array('label'=>'管理文件', 'url'=>array('admin')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -29,22 +29,33 @@ $('.search-form form').submit(function(){
 
 
 
-<?php 
-$this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'upload-grid',
+<?php
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id'=>'upload-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
-	'dataProvider'=>$model->search(),
-	'columns'=>array(
-		'id',
-		'type',
-		'name',
-		'path',
-				              array(
-            'class' => 'CButtonColumn',
-            'template' =>'{delete}',
-            'deleteButtonImageUrl' => false,
+    'dataProvider'=>$model->search(),
+    'columns'=>array(
+        array(
+            'name'=>'id',
+            'header'=>'#',
+            'htmlOptions'=>array('width'=>50),
         ),
-	),
+        'type',
+        'name',
+        array(
+            'name'=>'show',
+            'header'=>'预览',
+            'type'=>'image',
+            'value'=>'$data->getImage()',
+            'htmlOptions'=>array('width'=>50,'width'=>50),
+        ),
+        'path',
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'template' =>'{delete}',
+
+        ),
+    ),
 )); ?>
-<p>(*删除操作将删除服务上的实体文件)</p>
+<p><span style="color:red;">*</span>删除实体文件</p>

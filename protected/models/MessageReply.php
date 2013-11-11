@@ -1,4 +1,5 @@
 <?php
+//会员站内信模块
 /**
 * @author   poctsy  <poctsy@foxmail.com>
 * @copyright Copyright (c) 2013 poctsy

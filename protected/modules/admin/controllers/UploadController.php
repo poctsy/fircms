@@ -10,13 +10,11 @@ class UploadController extends FAdminController
 
 	public $layout='application.modules.admin.views.layouts.column2';
 
-        public function filters()
-        {
-            return array(
-                    'rights',
-                );
-        }
-
+    public function filters() {
+        return array(
+            array('auth.filters.AuthFilter'),
+        );
+    }
 
 
     public function actions()

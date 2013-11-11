@@ -6,7 +6,8 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'id'=>'page-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
@@ -15,64 +16,51 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'title'); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'subtitle'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'title'); ?>
-	</div>
+    <div class="control-group">
+        <?php echo $form->labelEx($model, 'thumb',array('class'=>"control-label")); ?>
+        <div class="controls" >
 
+            <?php if ($this->action->id == 'update'  && $model->thumb !='' ){
+                echo TbHtml::image($model->thumb,'',array('style'=>"width:60px;height:60px"));}
+            else{
+                echo TbHtml::image(Yii::app()->getModule('admin')->getAssetsUrl().'/images/image.png','',array('style'=>"width:60px;height:60px"));
+            }
+            ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'thumb'); ?>
-        <?php if ($this->action->id == 'update'  && $model->thumb !='' ):?>
-            <?php echo CHtml::image($model->thumb,'',array('style'=>"width:150px;height:150px"));?>
-        <?php endif; ?>
-        <?php echo $form->fileField($model,'thumb_file')?>
+            <?php echo $form->fileField($model,'thumb_file')?>
+        </div>
         <?php echo $form->error($model, 'thumb_file'); ?>
     </div>
 
+    <?php echo $form->textFieldControlGroup($model, 'aliases'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'url'); ?>
-		<?php echo $form->textField($model,'url',array('size'=>30,'maxlength'=>30)); ?>
-		<?php echo $form->error($model,'url'); ?>
-	</div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'content'); ?>
+    <div class="control-group">
+        <?php echo $form->labelEx($model, 'content',array('class'=>"control-label")); ?>
         <?php  $this->widget('FKe', array('model'=>$model));?>
         <?php echo $form->error($model, 'content'); ?>
     </div>
-	<div class="row">
-		<?php echo $form->labelEx($model,'view'); ?>
-		<?php echo $form->dropDownList($model,'view',$this->getPageViews(), array('style' => 'width:200px')); ?>
-		<?php echo $form->error($model,'view'); ?>
-	</div>
-    <div class="row">
-        <?php echo $form->labelEx($model,'title_s'); ?>
-        <?php echo $form->textField($model, 'title_s', array('size' => 60, 'maxlength' => 100)); ?>
-        <?php echo $form->error($model,'title_s'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model,'keyword'); ?>
-        <?php echo $form->textField($model,'keyword',array('size'=>30,'maxlength'=>30)); ?>
-        <?php echo $form->error($model,'keyword'); ?>
-    </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model,'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows'=>"5", 'cols'=>"90")); ?>
-        <?php echo $form->error($model,'description'); ?>
-    </div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+    <?php echo $form->dropDownListControlGroup($model,'view',$this->getPageViews()); ?>
+
+    <?php echo $form->textFieldControlGroup($model, 'title_s'); ?>
+
+    <?php echo $form->textFieldControlGroup($model, 'keyword'); ?>
+
+    <?php echo $form->textFieldControlGroup($model, 'description'); ?>
+
+    <?php echo TbHtml::formActions(array(
+        TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+        TbHtml::resetButton('重填'),
+    )); ?>
+
 
 <?php $this->endWidget(); ?>
 

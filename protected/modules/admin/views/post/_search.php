@@ -6,39 +6,26 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model,'catalog_id'); ?>
-
-        <?php echo $form->dropDownList($model,'catalog_id',Catalog::selectTree()); ?>
-        <?php echo $form->error($model,'catalog_id'); ?>
-    </div>
-
-	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>100)); ?>
-	</div>
+    <?php echo $form->textFieldControlGroup($model, 'id'); ?>
 
 
+    <?php echo $form->dropDownListControlGroup($model, 'catalog_id',Catalog::selectTree()); ?>
+
+    <?php echo $form->textFieldControlGroup($model, 'title'); ?>
+    <?php echo $form->textFieldControlGroup($model, 'subtitle'); ?>
+    <?php echo $form->textFieldControlGroup($model, 'content'); ?>
+
+    <?php echo TbHtml::formActions(array(
+        TbHtml::submitButton( '搜索'),
+    )); ?>
 
 
-	<div class="row">
-		<?php echo $form->label($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
 
 <?php $this->endWidget(); ?>
 
