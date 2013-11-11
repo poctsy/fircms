@@ -101,7 +101,7 @@ class Catalog extends FActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'navigations'=>array(self::HAS_MANY,'Navigation','catalog_id'),
+  
         );
     }
 
