@@ -165,7 +165,6 @@ class CatalogController extends FAdminController {
                $this->redirect(array('admin'));
            }elseif($model = $this->loadModel($id)){
 
-               $model->deleteNavigation();
                $model->deleteNode();
            }
 

@@ -337,15 +337,7 @@ class Catalog extends FActiveRecord {
         }
     }
 
-    public function deleteNavigation(){
-        if($navigations=$this->navigations){
-            foreach($navigations as $navigation){
-                $navigationId=$navigation->id;
-            }
-            Navigation::model()->findByPk($navigationId)->deleteNode();
 
-        }
-    }
 
     public function nameGet($name){
         $catalg=Catalog::model()->find('aliases=?',array($name));
