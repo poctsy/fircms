@@ -8,7 +8,7 @@
 return array(
     'sourcePath' => dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..',
     'messagePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'messages',
-    'languages' => array('zh', 'es'),
+    'languages' => array('zh_cn', 'es'),
     'fileTypes' => array('php'),
     'overwrite' => true,
     'exclude' => array(
