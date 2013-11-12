@@ -11,6 +11,10 @@ class FAdminController extends Controller {
     private $_postContentViews;
     private $_pageViews;
 
+    public function init(){
+
+    }
+
     public function getPostListViews(){
 
         if($this->_postListViews === NULL){

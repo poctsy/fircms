@@ -16,6 +16,7 @@
 
 <?php echo $form->textFieldControlGroup($model, 'create_time'); ?>
 
+<?php echo $form->textfieldControlGroup($model, 'to_user_name'); ?>
 
 <?php echo $form->textFieldControlGroup($model, 'from_user_id'); ?>
 

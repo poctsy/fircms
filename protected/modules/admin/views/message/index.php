@@ -3,13 +3,13 @@
 /* @var $model Message */
 
 $this->breadcrumbs=array(
-    '信息'=>array('index'),
+    '短信息'=>array('index'),
 	'查看信息',
 );
 
 $this->menu=array(
     array('label'=>'查看信息', 'url'=>array('index'),'active'=>$this->action->id=='index'),
-    array('label'=>'发信息', 'url'=>array('#'),'active'=>$this->action->id=='create'),
+    array('label'=>'发信息', 'url'=>array('send'),'active'=>$this->action->id=='create'),
 
 );
 
@@ -52,17 +52,20 @@ $('.search-form form').submit(function(){
             'name'=>'from_user_id',
             'htmlOptions'=>array('width'=>50),
         ),
-        array('name'=>'status',
-            'htmlOptions'=>array('width'=>160),
-            'value'=>'$data->statusLookup()',
-            'filter'=>Message::getAllStatus()),
+
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
         array('name'=>'create_time','type'=>'datetime'),
         array(
+           // 'htmlOptions' => array('nowrap'=>'nowrap'),
             'class'=>'bootstrap.widgets.TbButtonColumn',
-            'template' => '{delete}',
-
-
+            'template' => '{send}{delete}',
+            'buttons'=>array(
+                'send' => array(
+                    'icon'=>'edit',
+                    'options'=>array('title'=>'发信息'),
+                    'url'=>'Yii::app()->controller->createUrl("send",array("user"=>$data->from_user_id))',
+                ),
+            ),
         ),
 
 	),

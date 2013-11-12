@@ -22,6 +22,7 @@
  */
 class Message extends FActiveRecord
 {
+    public $to_user_name;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -38,11 +39,17 @@ class Message extends FActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content, status', 'required'),
+            array('to_user_name','safe'),
+			array('content', 'required'),
+            array('to_user_name', 'required','on'=>'send'),
 			array('status,from_user_id, to_user_id, create_time', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, content, status, create_time, from_user_id, to_user_id', 'safe', 'on'=>'search'),
+            array('id, content, status, create_time, from_user_id, to_user_id', 'safe', 'on'=>'user_search'),
+            array('to_user_name,content', 'filter', 'filter' => array($this, 'Purify')),
+            array('to_user_name','isUser'),
+
 		);
 	}
 
@@ -55,6 +62,8 @@ class Message extends FActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'messageReplys'=>array(self::HAS_MANY,'MessageReply','message_id'),
+            'to_user'=>array(self::BELONGS_TO,'User','to_user_id'),
+            'from_user'=>array(self::BELONGS_TO,'User','from_user_id'),
 		);
 	}
 
@@ -71,6 +80,7 @@ class Message extends FActiveRecord
             'from_user_id' => '发信人',
             'to_user_id' => '收信人',
 			'phone' => '电话',
+            'to_user_name'=>'发给：',
 
 		);
 	}
@@ -88,23 +98,40 @@ class Message extends FActiveRecord
 	 * based on the search/filter conditions.
 	 */
 	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+{
+    // @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+    $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('content',$this->content,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('create_time',$this->create_time);
+    $criteria->compare('id',$this->id);
+    $criteria->compare('content',$this->content,true);
+    $criteria->compare('status',$this->status);
+    $criteria->compare('create_time',$this->create_time);
+    $criteria->compare('from_user_id',$this->from_user_id);
+    $criteria->compare('to_user_id',$this->to_user_id);
+    $criteria->compare('to_user_id',Yii::app()->user->id);
+    return new CActiveDataProvider($this, array(
+        'criteria'=>$criteria,
+    ));
+}
+
+    public function adminSearch()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('content',$this->content,true);
+        $criteria->compare('status',$this->status);
+        $criteria->compare('create_time',$this->create_time);
         $criteria->compare('from_user_id',$this->from_user_id);
         $criteria->compare('to_user_id',$this->to_user_id);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -128,4 +155,14 @@ class Message extends FActiveRecord
         return array('1'=>'未阅读信息','2'=>'已阅读信息');
 
     }
+
+    public function isUser($attribute) {
+        if(($user=User::model()->find('username=?',array($this->$attribute)))==NUll){
+            if(!$this->hasErrors($attribute))$this->addError($attribute, '无此用户');
+        }else{
+            $this->to_user_id=$user->id;
+            $this->from_user_id=Yii::app()->user->id;
+        }
+    }
+
 }

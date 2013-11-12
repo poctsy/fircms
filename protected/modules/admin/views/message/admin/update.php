@@ -3,7 +3,7 @@
 /* @var $model Message */
 
 $this->breadcrumbs=array(
-    '信息'=>array('admin'),
+    '短信息'=>array('admin'),
     '更新信息',
 );
 
@@ -14,4 +14,4 @@ $this->menu=array(
 ?>
     <h1>更新信息 #<?php echo $model->id; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('admin/_form', array('model'=>$model)); ?>

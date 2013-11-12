@@ -1,13 +1,4 @@
 <?php
-//会员站内信模块
-/**
-* @author   poctsy  <poctsy@foxmail.com>
-* @copyright Copyright (c) 2013 poctsy
-* @link      http://www.fircms.com
-* @version   MessageReply.php  23:49 2013年10月02日  
-*/
-
-
 
 /**
  * This is the model class for table "{{message_reply}}".
@@ -16,6 +7,7 @@
  * @property integer $id
  * @property string $content
  * @property string $message_id
+ * @property integer $user_id
  */
 class MessageReply extends FActiveRecord
 {
@@ -35,12 +27,12 @@ class MessageReply extends FActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, content, message_id', 'required'),
-			array('id', 'numerical', 'integerOnly'=>true),
+			array('id, content, message_id, user_id', 'required'),
+			array('id, user_id', 'numerical', 'integerOnly'=>true),
 			array('message_id', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, content, message_id', 'safe', 'on'=>'search'),
+			array('id, content, message_id, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,7 +44,6 @@ class MessageReply extends FActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'message'=>array(self::HAS_MANY,'Message','message_id'),
 		);
 	}
 
@@ -65,6 +56,7 @@ class MessageReply extends FActiveRecord
 			'id' => 'ID',
 			'content' => 'Content',
 			'message_id' => 'Message',
+			'user_id' => 'User',
 		);
 	}
 
@@ -89,12 +81,28 @@ class MessageReply extends FActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('message_id',$this->message_id,true);
+		$criteria->compare('user_id',$this->user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
+    public function adminSearch()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('content',$this->content,true);
+        $criteria->compare('message_id',$this->message_id,true);
+        $criteria->compare('user_id',$this->user_id);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

@@ -3,7 +3,7 @@
 /* @var $model Message */
 
 $this->breadcrumbs=array(
-    '信息'=>array('admin'),
+    '短信息'=>array('admin'),
 	'管理信息',
 );
 
@@ -28,7 +28,7 @@ $('.search-form form').submit(function(){
 <h1>管理信息</h1>
 <?php echo CHtml::link('高级搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
+<?php $this->renderPartial('admin/_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
@@ -37,7 +37,7 @@ $('.search-form form').submit(function(){
 	'id'=>'message-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->adminSearch(),
 	'filter'=>$model,
 	'columns'=>array(
         array(
