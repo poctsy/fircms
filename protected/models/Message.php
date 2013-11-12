@@ -18,10 +18,7 @@
  * @property integer $status
  * @property integer $create_time
  * @property integer $from_user_id
- * @property string $email
- * @property string $phone
- * @property string $other_contact
- * @property string $user_id
+ * @property integer $to_user_id
  */
 class Message extends FActiveRecord
 {
@@ -41,13 +38,11 @@ class Message extends FActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content, status, email', 'required'),
-			array('status,, from_user_id, to_user_id, create_time', 'numerical', 'integerOnly'=>true),
-			array('name, email, phone, other_contact', 'length', 'max'=>128),
-			//array('from_user_id, to_user_id', 'length', 'max'=>11),
+			array('content, status', 'required'),
+			array('status,from_user_id, to_user_id, create_time', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, content, status, create_time, from_user_id, to_user_id,email, phone, other_contact, user_id', 'safe', 'on'=>'search'),
+			array('id, content, status, create_time, from_user_id, to_user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,14 +68,10 @@ class Message extends FActiveRecord
 			'content' => '内容',
 			'status' => '状态',
 			'create_time' => '时间',
-
             'from_user_id' => '发信人',
             'to_user_id' => '收信人',
-			'name' => '名字',
-			'email' => '邮箱',
 			'phone' => '电话',
-			'other_contact' => '其他联系方式',
-			'user_id' => 'User',
+
 		);
 	}
 
@@ -108,10 +99,6 @@ class Message extends FActiveRecord
 		$criteria->compare('create_time',$this->create_time);
         $criteria->compare('from_user_id',$this->from_user_id);
         $criteria->compare('to_user_id',$this->to_user_id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('other_contact',$this->other_contact,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

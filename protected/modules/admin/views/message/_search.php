@@ -20,11 +20,6 @@
 
 <?php echo $form->textFieldControlGroup($model, 'from_user_id'); ?>
 
-<?php echo $form->textFieldControlGroup($model, 'email'); ?>
-
-<?php echo $form->textFieldControlGroup($model, 'phone'); ?>
-
-<?php echo $form->textFieldControlGroup($model, 'other_contact'); ?>
 
     <?php echo TbHtml::formActions(array(
         TbHtml::submitButton( '搜索'),

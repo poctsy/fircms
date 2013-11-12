@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 11 月 12 日 12:17
+-- 生成日期: 2013 年 11 月 11 日 16:14
 -- 服务器版本: 5.5.24-log
 -- PHP 版本: 5.3.13
 
@@ -90,31 +90,31 @@ CREATE TABLE IF NOT EXISTS `fircms_catalog` (
   `rgt` int(10) unsigned NOT NULL,
   `level` smallint(5) unsigned NOT NULL,
   `name` varchar(30) NOT NULL,
-  `subtitle` varchar(50) NOT NULL DEFAULT '',
-  `aliases` varchar(30) NOT NULL,
-  `thumb` varchar(130) NOT NULL DEFAULT '',
-  `title_s` varchar(50) NOT NULL DEFAULT '',
-  `keyword` varchar(30) NOT NULL DEFAULT '',
-  `description` varchar(30) NOT NULL DEFAULT '',
-  `show_type` varchar(30) NOT NULL DEFAULT 'list',
+  `subtitle` varchar(50) NOT NULL,
+  `aliases` varchar(30) NOT NULL DEFAULT '',
+  `thumb` varchar(130) DEFAULT NULL,
+  `title_s` varchar(50) NOT NULL,
+  `keyword` varchar(30) NOT NULL,
+  `description` varchar(30) NOT NULL,
+  `show_type` varchar(30) NOT NULL,
   `url` varchar(30) NOT NULL DEFAULT '',
   `content` text COMMENT '栏目简介',
   `list_view` varchar(50) NOT NULL DEFAULT '' COMMENT '列表页视图',
   `content_view` varchar(50) NOT NULL DEFAULT '' COMMENT '文章详细页视图',
   `page_view` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=432 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=431 ;
 
 --
 -- 转存表中的数据 `fircms_catalog`
 --
 
 INSERT INTO `fircms_catalog` (`id`, `lft`, `rgt`, `level`, `name`, `subtitle`, `aliases`, `thumb`, `title_s`, `keyword`, `description`, `show_type`, `url`, `content`, `list_view`, `content_view`, `page_view`) VALUES
-(409, 1, 26, 1, '顶级分类', '', '', '', '', '', '', '1', '', '', '', '', ''),
+(409, 1, 26, 1, '顶级分类', '', '', NULL, '', '', '', '1', '', '', '', '', ''),
 (410, 2, 7, 2, '新闻资讯', '', 'aaa', 'upload/thumb/20131109/20131109135424_14842.png', '', '', '', 'list', 'news', '新闻资讯', '0', '0', ''),
 (411, 8, 17, 2, '产品展示', '', '', 'upload/thumb/20131110/20131110000909_61240.png', '', '', '', 'list', 'product', ' ', '0', '0', ''),
-(415, 5, 6, 3, '公司动态', '', '', 'upload/thumb/20131109/20131109135438_71339.png', '', '', '', 'list', 'classa', '', '0', '0', ''),
-(416, 3, 4, 3, '业界资讯', '', '', 'upload/thumb/20131109/20131109135444_30516.png', '', '', '', 'list', 'classb', '', '0', '0', ''),
+(415, 3, 4, 3, '公司动态', '', '', 'upload/thumb/20131109/20131109135438_71339.png', '', '', '', 'list', 'classa', '', '0', '0', ''),
+(416, 5, 6, 3, '业界资讯', '', '', 'upload/thumb/20131109/20131109135444_30516.png', '', '', '', 'list', 'classb', '', '0', '0', ''),
 (420, 9, 16, 3, '饰品珠宝', '', '', '', '', '', '', 'list', 'a2', '', '0', '0', ''),
 (421, 10, 11, 4, '最新款', '', '', '', '', '', '', 'list', 'a3', '', '0', '0', ''),
 (427, 18, 23, 2, '下载中心', '', '', '', '', '', '', 'list', 'download', '', '0', '0', ''),
@@ -178,11 +178,12 @@ CREATE TABLE IF NOT EXISTS `fircms_feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
-  `create_time` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(128) NOT NULL,
-  `position` varchar(128) NOT NULL DEFAULT '',
+  `create_time` int(11) DEFAULT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `position` varchar(128) DEFAULT NULL,
   `email` varchar(128) NOT NULL,
-  `phone` varchar(128) NOT NULL DEFAULT '',
+  `phone` varchar(128) DEFAULT NULL,
+  `user_id` varchar(11) DEFAULT NULL,
   `category` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='留言反馈表' AUTO_INCREMENT=2 ;
@@ -191,8 +192,8 @@ CREATE TABLE IF NOT EXISTS `fircms_feedback` (
 -- 转存表中的数据 `fircms_feedback`
 --
 
-INSERT INTO `fircms_feedback` (`id`, `content`, `status`, `create_time`, `name`, `position`, `email`, `phone`, `category`) VALUES
-(1, '2222', 2, 0, '', '', '222@qq.com', '', 1);
+INSERT INTO `fircms_feedback` (`id`, `content`, `status`, `create_time`, `name`, `position`, `email`, `phone`, `user_id`, `category`) VALUES
+(1, '2222', 2, 0, '', '', '222@qq.com', '', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -217,8 +218,12 @@ CREATE TABLE IF NOT EXISTS `fircms_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `status` int(11) NOT NULL,
-  `create_time` int(11) NOT NULL DEFAULT '0',
-  `from_user_id` int(11) NOT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `email` varchar(128) NOT NULL,
+  `phone` varchar(128) DEFAULT NULL,
+  `other_contact` varchar(128) DEFAULT NULL,
+  `from_user_id` int(11) DEFAULT NULL,
   `to_user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=2 ;
@@ -227,8 +232,8 @@ CREATE TABLE IF NOT EXISTS `fircms_message` (
 -- 转存表中的数据 `fircms_message`
 --
 
-INSERT INTO `fircms_message` (`id`, `content`, `status`, `create_time`, `from_user_id`, `to_user_id`) VALUES
-(1, '', 1, 0, 0, 0);
+INSERT INTO `fircms_message` (`id`, `content`, `status`, `create_time`, `name`, `email`, `phone`, `other_contact`, `from_user_id`, `to_user_id`) VALUES
+(1, '', 1, 0, NULL, '', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -251,15 +256,15 @@ CREATE TABLE IF NOT EXISTS `fircms_message_reply` (
 
 CREATE TABLE IF NOT EXISTS `fircms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `thumb` varchar(130) NOT NULL DEFAULT '',
-  `title` varchar(50) NOT NULL,
-  `subtitle` varchar(50) NOT NULL DEFAULT '',
+  `thumb` varchar(130) DEFAULT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `subtitle` varchar(50) NOT NULL,
   `title_s` varchar(50) NOT NULL DEFAULT '' COMMENT 'seo的title',
-  `keyword` varchar(30) NOT NULL DEFAULT '',
-  `description` varchar(30) NOT NULL DEFAULT '',
+  `keyword` varchar(30) NOT NULL,
+  `description` varchar(30) NOT NULL,
   `aliases` varchar(30) NOT NULL DEFAULT '',
   `content` text COMMENT '栏目简介',
-  `view` varchar(50) NOT NULL COMMENT '视图模板',
+  `view` varchar(50) NOT NULL DEFAULT '' COMMENT '视图模板',
   `create_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='优先选择page表的seo跟标题，没有再选择栏目的' AUTO_INCREMENT=2 ;
@@ -269,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `fircms_page` (
 --
 
 INSERT INTO `fircms_page` (`id`, `thumb`, `title`, `subtitle`, `title_s`, `keyword`, `description`, `aliases`, `content`, `view`, `create_time`) VALUES
-(1, '', '关于我们', '', '', '', '', 'aaa', '', '0', 0);
+(1, NULL, '关于我们', '', '', '', '', 'aaa', '', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -280,9 +285,9 @@ INSERT INTO `fircms_page` (`id`, `thumb`, `title`, `subtitle`, `title_s`, `keywo
 CREATE TABLE IF NOT EXISTS `fircms_plus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(11) NOT NULL,
-  `class` varchar(30) NOT NULL,
+  `class` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `fircms_plus`
@@ -346,25 +351,32 @@ CREATE TABLE IF NOT EXISTS `fircms_upload` (
 CREATE TABLE IF NOT EXISTS `fircms_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
-  `password` varchar(128) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `salt` varchar(128) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `realname` varchar(30) NOT NULL DEFAULT '',
-  `phone` varchar(30) NOT NULL DEFAULT '',
-  `created_time` int(11) NOT NULL DEFAULT '0',
+  `email` varchar(250) NOT NULL,
+  `created_time` int(11) NOT NULL,
   `last_login_time` int(11) NOT NULL DEFAULT '0',
-  `last_login_ip` varchar(15) NOT NULL DEFAULT '',
+  `this_login_time` int(11) NOT NULL DEFAULT '0',
+  `last_login_ip` varchar(30) NOT NULL DEFAULT '',
+  `this_login_ip` varchar(30) NOT NULL DEFAULT '',
+  `realname` varchar(30) NOT NULL DEFAULT '',
+  `province` varchar(30) NOT NULL DEFAULT '',
+  `city` varchar(30) NOT NULL DEFAULT '',
+  `company` varchar(50) NOT NULL DEFAULT '',
+  `weibo` varchar(100) NOT NULL DEFAULT '',
+  `phone` int(20) NOT NULL,
+  `qq` int(15) NOT NULL,
+  `profile` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `fircms_user`
 --
 
-INSERT INTO `fircms_user` (`id`, `username`, `password`, `salt`, `email`, `realname`, `phone`, `created_time`, `last_login_time`, `last_login_ip`) VALUES
-(1, 'fircms', 'fecf55dc3986c295728ef7603c4298', 'rRq&Zs4^0`_v:x_/=tMpBUd6+(spr%*0', 'fircms@fircms.com', '', '', 1380376428, 1384234018, '127.0.0.1'),
-(2, 'demo', 'bb8dbbc6a1bbedc60f044654a1976b', '1hc`1K}WtRot^XqXtXk(yk|QTJ+kr]w:', 'demo@demo.com', '', '', 1380376428, 1383752685, '127.0.0.1'),
-(5, 'aaaaaa', 'c492c24888e01e96da51c1f0355a8e3d', 'hTf~CGEQlJgi;xIkUZ(5UUml4w3yf[t9', 'aaaaaa@aa.aa', '', '', 1384257169, 1384257202, '127.0.0.1');
+INSERT INTO `fircms_user` (`id`, `username`, `password`, `salt`, `email`, `created_time`, `last_login_time`, `this_login_time`, `last_login_ip`, `this_login_ip`, `realname`, `province`, `city`, `company`, `weibo`, `phone`, `qq`, `profile`) VALUES
+(1, 'fircms', 'fecf55dc3986c295728ef7603c4298ac', 'rRq&Zs4^0`_v:x_/=tMpBUd6+(spr%*0', 'fircms@fircms.com', 1380376428, 1384181842, 1384182516, '127.0.0.1', '127.0.0.1', '', '', '', '', '', 0, 0, ''),
+(2, 'demo', 'bb8dbbc6a1bbedc60f044654a1976b32', '1hc`1K}WtRot^XqXtXk(yk|QTJ+kr]w:', 'demo@demo.com', 1380376428, 1383752685, 1384172613, '127.0.0.1', '127.0.0.1', '', '', '', '', '', 0, 0, '');
 
 --
 -- 限制导出的表

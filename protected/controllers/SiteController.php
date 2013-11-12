@@ -120,17 +120,12 @@ class SiteController extends FController
             // validate user input and redirect to the previous page if valid
             if($model->validate() && $model->login()){
                 $user = User::model()->findBypk(Yii::app()->user->id);
-                //记录当前ip 时间,记录过去的时间
                 if(YII_DEBUG == true){
                 	    $user->last_login_ip ='127.0.0.1';
-                	    $user->this_login_ip = '127.0.0.1';
                 	}else{
-                	    $user->last_login_ip = $user->this_login_ip;
-                	    $user->this_login_ip = Yii::app()->request->userHostAddress;
+                	    $user->last_login_ip = Yii::app()->request->userHostAddress;
                 	}
-                $user->last_login_time = $user->this_login_time;
-                $user->this_login_time = time();
-
+                $user->last_login_time = time();
                 $user->save();
                 $this->redirect(Yii::app()->user->returnUrl);}
         }

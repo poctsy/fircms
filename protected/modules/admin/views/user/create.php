@@ -27,4 +27,4 @@ $('.create-more-button').click(function(){
 
 <h1>创建用户</h1>
 
-<?php $this->renderPartial('_createform', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>

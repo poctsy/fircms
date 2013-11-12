@@ -28,11 +28,6 @@
 
     <?php echo $form->textFieldControlGroup($model, 'to_user_id'); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'email'); ?>
-
-    <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
-
-    <?php echo $form->textFieldControlGroup($model, 'other_contact'); ?>
 
 <?php echo TbHtml::formActions(array(
     TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),

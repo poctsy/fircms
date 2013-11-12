@@ -70,7 +70,7 @@ class Catalog extends FActiveRecord {
         return array(
             array('parent,name,thumb,show_type', 'safe',),
 
-            array('parent,name,show_type', 'required'),
+            array('parent,name,aliases,show_type', 'required'),
 
             array('aliases','unique'),
             array('url','url'),

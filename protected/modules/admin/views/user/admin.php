@@ -59,7 +59,6 @@ $('.search-form form').submit(function(){
 			'filter'=>false,
 		),
 
-
                 'last_login_ip',
               array(
             'class' => 'bootstrap.widgets.TbButtonColumn',

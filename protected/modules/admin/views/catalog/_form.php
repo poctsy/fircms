@@ -29,6 +29,7 @@
 
     <?php echo $form->dropDownListControlGroup($model, 'show_type', Catalog::getAllShow_type()); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'aliases'); ?>
 
     <?php echo $form->textFieldControlGroup($model, 'subtitle'); ?>
 
@@ -48,7 +49,7 @@
         <?php echo $form->error($model, 'thumb_file'); ?>
     </div>
 
-    <?php echo $form->textFieldControlGroup($model, 'aliases'); ?>
+
 
     <?php $dropdownConfig = array(
 

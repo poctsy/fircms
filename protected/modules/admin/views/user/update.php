@@ -23,5 +23,5 @@ $('.update-more-button').click(function(){
 ?>
 
 
-h1>更新用户 #<?php echo $model->id; ?></h1>
-<?php $this->renderPartial('_updateform', array('model'=>$model)); ?>
+    <h1>更新用户 #<?php echo $model->id; ?></h1>
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>

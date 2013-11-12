@@ -25,21 +25,11 @@
 
     <?php echo $form->passwordFieldControlGroup($model, 'password'); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'realname'); ?>
 
-      <div class="create-more" style="display: none">
+    <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
 
-          <?php echo $form->textFieldControlGroup($model, 'realname'); ?>
-
-          <?php echo $form->textFieldControlGroup($model, 'province'); ?>
-
-          <?php echo $form->textFieldControlGroup($model, 'city'); ?>
-
-          <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
-
-          <?php echo $form->textAreaControlGroup($model, 'profile'); ?>
-
-  </div>
-    <?php echo TbHtml::formActions(array(TbHtml::link('更多选项','#',array('class'=>'create-more-button')),
+    <?php echo TbHtml::formActions(array(
         TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
 
     )); ?>

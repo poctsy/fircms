@@ -17,7 +17,6 @@
  * @property string $position
  * @property string $email
  * @property string $phone
- * @property string $user_id
  * @property integer $category
  */
 class Feedback extends FActiveRecord
@@ -41,10 +40,9 @@ class Feedback extends FActiveRecord
 			array('content, email', 'required'),
 			array('status, create_time, category', 'numerical', 'integerOnly'=>true),
 			array('name, position, email, phone', 'length', 'max'=>128),
-			array('user_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, content, status, create_time, name, position, email, phone, user_id, category', 'safe', 'on'=>'search'),
+			array('id, content, status, create_time, name, position, email, phone, category', 'safe', 'on'=>'search'),
             array('content,position,name, email, phone', 'filter', 'filter' => array($this, 'contentPurify')),
 		);
 	}
@@ -74,7 +72,6 @@ class Feedback extends FActiveRecord
 			'position' => '职位',
 			'email' => '邮箱',
 			'phone' => '电话',
-			'user_id' => 'User',
 			'category' => '分类',
 		);
 	}
@@ -105,7 +102,6 @@ class Feedback extends FActiveRecord
 		$criteria->compare('position',$this->position,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('category',$this->category);
 
 		return new CActiveDataProvider($this, array(

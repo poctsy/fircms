@@ -20,13 +20,10 @@
 
     <?php echo $form->textFieldControlGroup($model, 'realname'); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'province'); ?>
-
-    <?php echo $form->textFieldControlGroup($model, 'city'); ?>
 
     <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'profile'); ?>
+
     <?php echo TbHtml::formActions(array(
         TbHtml::submitButton( '搜索'),
     )); ?>
