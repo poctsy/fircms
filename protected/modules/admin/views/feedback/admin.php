@@ -49,7 +49,7 @@ $('.search-form form').submit(function(){
             'htmlOptions'=>array('width'=>50),
         ),
         array('name'=>'category',
-            'htmlOptions'=>array('width'=>160),
+            'htmlOptions'=>array('width'=>100),
             'value'=>'$data->categoryLookup()',
             'filter'=>Feedback::getAllCategory()),
         array(
@@ -57,13 +57,13 @@ $('.search-form form').submit(function(){
             'htmlOptions'=>array('width'=>100),
         ),
         array('name'=>'status',
-            'htmlOptions'=>array('width'=>160),
+            'htmlOptions'=>array('width'=>100),
             'value'=>'$data->statusLookup()',
             'filter'=>Feedback::getAllStatus()),
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
 
         array('name'=>'create_time',
-            'htmlOptions'=>array('style'=>'width: 200px;'),
+            'htmlOptions'=>array('width'=>180),
             'type'=>'datetime'),
        array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',

@@ -47,7 +47,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'header'=>'预览',
             'type'=>'image',
             'value'=>'$data->getImage()',
-            'htmlOptions'=>array('width'=>50,'width'=>50),
+            'htmlOptions'=>array('width'=>50),
         ),
         'path',
         array(

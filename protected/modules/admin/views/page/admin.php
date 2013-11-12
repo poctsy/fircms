@@ -47,7 +47,7 @@ $('.search-form form').submit(function(){
         ),
 		'title',
         array('name'=>'create_time',
-            'htmlOptions'=>array('style'=>'width: 200px;'),
+            'htmlOptions'=>array('width'=>180),
             'type'=>'datetime'),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',

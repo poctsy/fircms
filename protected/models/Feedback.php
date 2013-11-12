@@ -122,9 +122,9 @@ class Feedback extends FActiveRecord
 
     public function statusLookup(){
         if($this->status ==1){
-            return "未答复";
+            return "未阅读信息";
         }else{
-            return "已答复";
+            return "已阅读信息";
         }
     }
     public function categoryLookup(){
