@@ -219,7 +219,7 @@ class Catalog extends FActiveRecord {
             echo CHtml::openTag('li', array('id' => 'catalog_' . $catalog->id, 'rel' => $catalog->name));
             echo CHtml::openTag('span');
             echo CHtml::encode($catalog->name);
-            echo CHtml::decode('&nbsp;&nbsp;&nbsp;') . CHtml::encode('[#' .( !empty($catalog->aliases) ? $catalog->aliases :$catalog->id) . ']');
+            echo CHtml::decode('&nbsp;&nbsp;&nbsp;') . CHtml::encode('[#' .$catalog->id . ']');
             echo CHtml::closeTag('span');
             echo CHtml::openTag('span', array('class' => 'cudlink'));
 
