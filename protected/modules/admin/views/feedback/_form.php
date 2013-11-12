@@ -22,19 +22,17 @@
 
     <?php echo $form->dropDownListControlGroup($model,'category',Feedback::getAllCategory()); ?>
 
-    <?php echo $form->dropDownListControlGroup($model,'status',Feedback::getAllStatus()); ?>
-
     <?php echo $form->textFieldControlGroup($model, 'name'); ?>
-
-
-    <?php echo $form->textFieldControlGroup($model, 'position'); ?>
 
     <?php echo $form->textFieldControlGroup($model, 'email'); ?>
 
     <?php echo $form->textFieldControlGroup($model, 'phone'); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'position'); ?>
+
     <?php echo $form->textAreaControlGroup($model, 'content',array('rows'=>6, 'cols'=>50)); ?>
 
+   <?php echo $form->dropDownListControlGroup($model,'status',Feedback::getAllStatus()); ?>
 
 <?php echo TbHtml::formActions(array(
     TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),

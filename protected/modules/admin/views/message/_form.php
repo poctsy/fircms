@@ -20,14 +20,6 @@
 
     <?php echo $form->textAreaControlGroup($model, 'content'); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'status'); ?>
-
-    <?php echo $form->textFieldControlGroup($model, 'create_time'); ?>
-
-    <?php echo $form->textFieldControlGroup($model, 'from_user_id'); ?>
-
-    <?php echo $form->textFieldControlGroup($model, 'to_user_id'); ?>
-
 
 <?php echo TbHtml::formActions(array(
     TbHtml::submitButton($model->isNewRecord ? '创建' : '保存', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),

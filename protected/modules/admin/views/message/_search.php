@@ -14,8 +14,6 @@
 
 <?php echo $form->textAreaControlGroup($model, 'content'); ?>
 
-<?php echo $form->textFieldControlGroup($model, 'status'); ?>
-
 <?php echo $form->textFieldControlGroup($model, 'create_time'); ?>
 
 <?php echo $form->textFieldControlGroup($model, 'from_user_id'); ?>

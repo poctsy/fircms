@@ -37,7 +37,7 @@ class Feedback extends FActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content, email', 'required'),
+			array('content, email,name', 'required'),
 			array('status, create_time, category', 'numerical', 'integerOnly'=>true),
 			array('name, position, email, phone', 'length', 'max'=>128),
 			// The following rule is used by search().
@@ -68,7 +68,7 @@ class Feedback extends FActiveRecord
 			'content' => '内容',
 			'status' => '状态',
 			'create_time' => '创建时间',
-			'name' => '姓名',
+			'name' => '称呼',
 			'position' => '职位',
 			'email' => '邮箱',
 			'phone' => '电话',
