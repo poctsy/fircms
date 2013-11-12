@@ -3,13 +3,22 @@
 <div class="container-fluid" style="padding: 70px;">
     <div class="row-fluid">
     <div class="span2">
-        <?php
-        $this->widget('bootstrap.widgets.TbNav', array(
-            'stacked' => true,
+        <?php $this->widget('bootstrap.widgets.TbNav', array(
             'type' => TbHtml::NAV_TYPE_TABS,
-            'items'=>$this->menu,
-        ));
+            'stacked' => true,
+            'items' =>array(
+                array('label'=>'系统信息', 'url'=>array('/admin/default/index'),'action'=>$this->id=='default'),
+                array('label'=>'基本配置', 'url'=>'#'),
+                array('label'=>'文件管理', 'url'=>array('/admin/upload/admin')),
+                array('label'=>'参数管理', 'url'=>array('/admin/config/admin')),
+                array('label'=>'信息管理', 'url'=>array('/admin/message/admin')),
+                array('label'=>'模块管理', 'url'=>array('/admin/plus/admin')),
+                array('label'=>'权限管理', 'url'=>array('/auth')),
+                array('label'=>'用户管理', 'url'=>array('/admin/user/admin')),
+
+            )));
         ?>
+
         <!-- sidebar -->
     </div>
 
@@ -22,6 +31,13 @@
 			'homeUrl'=>$this->createUrl('/admin'),
 		)); ?><!-- breadcrumbs -->
         <?php endif?>
+
+        <?php
+        $this->widget('bootstrap.widgets.TbNav', array(
+            'type' => TbHtml::NAV_TYPE_TABS,
+            'items'=>$this->menu,
+        ));
+        ?>
 
         <div id="content">
             <?php echo $content; ?>

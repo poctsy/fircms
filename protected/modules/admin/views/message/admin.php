@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    array('label'=>'管理信息', 'url'=>array('admin')),
+    array('label'=>'管理信息', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
+<h1>管理信息</h1>
 <?php echo CHtml::link('高级搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
@@ -54,10 +54,6 @@ $('.search-form form').submit(function(){
             'name'=>'to_user_id',
             'htmlOptions'=>array('width'=>50),
         ),
-        array('name'=>'status',
-            'htmlOptions'=>array('width'=>160),
-            'value'=>'$data->statusLookup()',
-            'filter'=>Message::getAllStatus()),
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
         array('name'=>'create_time','type'=>'datetime'),
         array(

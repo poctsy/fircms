@@ -6,17 +6,16 @@
 <?php
 $this->breadcrumbs=array(
 	'模块'=>array('admin'),
-	'添加模块',
+	'创建模块',
 );
 
 $this->menu=array(
-    array('label'=>'查看模块', 'url'=>array('index')),
-    array('label'=>'添加模块', 'url'=>array('create')),
-    array('label'=>'管理模块', 'url'=>array('admin')),
+    array('label'=>'管理模块', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'创建模块', 'url'=>array('create'),'active'=>$this->action->id=='create'),
 );
 ?>
 
 
 
-
+    <h1>创建模块</h1>
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

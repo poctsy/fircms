@@ -8,8 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'管理留言', 'url'=>array('admin')),
+    array('label'=>'管理留言', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
 );
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

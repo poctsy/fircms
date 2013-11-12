@@ -36,7 +36,7 @@ class PlusController extends FAdminController
 		if (isset($_POST['Plus'])) {
 			$model->attributes=$_POST['Plus'];
 			if ($model->save()) {
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 			}
 		}
 
@@ -60,7 +60,7 @@ class PlusController extends FAdminController
 		if (isset($_POST['Plus'])) {
 			$model->attributes=$_POST['Plus'];
 			if ($model->save()) {
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 			}
 		}
 

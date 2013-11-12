@@ -4,11 +4,12 @@
 
 $this->breadcrumbs=array(
 	'配置'=>array('admin'),
-	'配置管理',
+	'管理配置',
 );
 
 $this->menu=array(
-	array('label'=>'创建配置', 'url'=>array('create')),
+    array('label'=>'管理配置', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+	array('label'=>'创建配置', 'url'=>array('create'),'active'=>$this->action->id=='create'),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -24,7 +25,7 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
+<h1>管理配置</h1>
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'config-grid',
     //'cssFile'=>Yii::app()->baseUrl."/css/grid.css",

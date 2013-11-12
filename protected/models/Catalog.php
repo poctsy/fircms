@@ -73,12 +73,13 @@ class Catalog extends FActiveRecord {
             array('parent,name,show_type', 'required'),
 
             array('aliases','unique'),
+            array('url','url'),
 
            // array('aliases','type','type'=>'string'),
 
             array('parent,', 'numerical', 'integerOnly' => true),
 
-            array(' keyword,,show_type description,url,aliases', 'length', 'max' => 30),
+            array(' keyword,show_type description,url,aliases', 'length', 'max' => 30),
             array('title_s,list_view,page_view,subtitle,content_view', 'length', 'max' => 50),
 
             array('content', 'filter', 'filter' => array($this, 'contentPurify')),

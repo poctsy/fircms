@@ -7,6 +7,10 @@
  * @link      http://www.fircms.com
  */
 class Fircms extends CComponent{
+
+    const VERSION = 'FirCMS1.0';
+
+
 //获取views下的视图跟theme下视图
     public function getViews($modules,$select='no') {
 //获取views视图

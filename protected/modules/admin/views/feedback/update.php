@@ -8,10 +8,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'管理留言', 'url'=>array('admin')),
+    array('label'=>'管理留言', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'更新留言', 'url'=>array('update'),'active'=>$this->action->id=='update'),
 );
 ?>
 
-<h1>Update Feedback <?php echo $model->id; ?></h1>
+    <h1>更新留言 #<?php echo $model->id; ?></h1>
+
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

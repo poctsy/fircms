@@ -8,9 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    array('label'=>'发信息', 'url'=>array('send')),
-    array('label'=>'查看信息', 'url'=>array('index')),
+    array('label'=>'查看信息', 'url'=>array('index'),'active'=>$this->action->id=='index'),
+    array('label'=>'发信息', 'url'=>array('#'),'active'=>$this->action->id=='create'),
+
 );
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -26,7 +28,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
+<h1>查看信息</h1>
 <?php echo CHtml::link('高级搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
@@ -58,7 +60,7 @@ $('.search-form form').submit(function(){
         array('name'=>'create_time','type'=>'datetime'),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
-            'template' => '{update},{delete}',
+            'template' => '{delete}',
 
 
         ),

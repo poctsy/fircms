@@ -26,9 +26,11 @@ class Plus extends FActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
+			array('name,class', 'required'),
 			array('name', 'length', 'max'=>11),
 			array('class', 'length', 'max'=>30),
+            array('class',  'isCLass'),
+            array('class,class',  'unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, class', 'safe', 'on'=>'search'),
@@ -53,8 +55,8 @@ class Plus extends FActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'class' => 'Class',
+			'name' => '模块名称',
+			'class' => '模块类名',
 		);
 	}
 
@@ -95,4 +97,9 @@ class Plus extends FActiveRecord
 	{
 		return parent::model($className);
 	}
+    public function isCLass($attribute) {
+        if(!@class_exists($this->$attribute)){
+            if(!$this->hasErrors($attribute))$this->addError($attribute, '尚未发现此模块!');
+        }
+    }
 }

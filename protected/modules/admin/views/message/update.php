@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'管理信息', 'url'=>array('admin')),
+    array('label'=>'管理信息', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'更新信息', 'url'=>array('update'),'active'=>$this->action->id=='update'),
 );
 ?>
-
-<h1>Update Message <?php echo $model->id; ?></h1>
+    <h1>更新信息 #<?php echo $model->id; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

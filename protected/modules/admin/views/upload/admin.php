@@ -8,9 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    array('label'=>'管理文件', 'url'=>array('admin')),
+    array('label'=>'管理文件', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
 );
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -28,7 +27,7 @@ $('.search-form form').submit(function(){
 
 
 
-
+<h1>管理文件</h1>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id'=>'upload-grid',

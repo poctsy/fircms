@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-
-	array('label'=>'创建单页', 'url'=>array('create')),
+    array('label'=>'管理单页', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'创建单页', 'url'=>array('create'),'active'=>$this->action->id=='create'),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 ?>
 
 
-
+<h1>管理单页</h1>
 <?php echo CHtml::link('高级搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(

@@ -9,8 +9,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    array('label'=>'添加模块', 'url'=>array('create')),
-    array('label'=>'管理模块', 'url'=>array('admin')),
+    array('label'=>'管理模块', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'创建模块', 'url'=>array('create'),'active'=>$this->action->id=='create'),
 );
 
 
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
+    <h1>管理模块</h1>
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'plus-grid',
 	'dataProvider'=>$model->search(),

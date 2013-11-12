@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    	array('label'=>'创建内容', 'url'=>array('create')),
-        array('label'=>'管理内容', 'url'=>array('admin')),
+    array('label'=>'管理内容', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'创建内容', 'url'=>array('create'),'active'=>$this->action->id=='create'),
 );
 ?>
 
- 
 
+    <h1>创建内容</h1>
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

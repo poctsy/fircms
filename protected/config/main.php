@@ -37,6 +37,7 @@ return array(
             'ipFilters'=>array('127.0.0.1','::1'),
         ),
         'auth'=>array(
+
             'userClass' => 'User', // the name of the user model class.
             'userIdColumn' => 'id', // the name of the user id column.
             'userNameColumn' => 'username', // the name of the user name column.

@@ -3,13 +3,14 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Users'=>array('admin'),
-	'Update',
+	'用户'=>array('admin'),
+	'更新用户',
 );
 
 $this->menu=array(
-	array('label'=>'添加用户', 'url'=>array('create')),
-	array('label'=>'管理用户', 'url'=>array('admin')),
+    array('label'=>'管理用户', 'url'=>array('admin'),'active'=>$this->action->id=='admin'),
+    array('label'=>'创建用户', 'url'=>array('create'),'active'=>$this->action->id=='create'),
+    array('label'=>'更新用户', 'url'=>array('update'),'active'=>$this->action->id=='update'),
 );
 
 Yii::app()->clientScript->registerScript('update', "
@@ -21,6 +22,6 @@ $('.update-more-button').click(function(){
 ");
 ?>
 
- 
 
+h1>更新用户 #<?php echo $model->id; ?></h1>
 <?php $this->renderPartial('_updateform', array('model'=>$model)); ?>

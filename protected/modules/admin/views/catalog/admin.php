@@ -3,13 +3,13 @@
 /* @var $model Catalog */
 
 $this->breadcrumbs = array(
-    '栏目'=>array('catalog/admin'),
+    '栏目'=>array('admin'),
     '管理栏目',
 );
 
 $this->menu = array(
-    array('label' =>  '添加栏目', 'url' => array('create')),
-    array('label'=>'管理栏目', 'url'=>array('admin')),
+    array('label'=>'管理栏目', 'url'=>array('admin'), 'active' => $this->action->id=='admin'),
+    array('label' => '创建栏目', 'url' => array('create'),'active'=>$this->action->id=='create'),
 
 );
 $cs1 = Yii::app()->getClientScript();
@@ -57,7 +57,7 @@ jQuery(document).on('click','#catalogtree a.delete',function() {
 ");
 ?>
 
-
+<h1>管理栏目</h1>
 <div id="catalogtree">
     <div><?php Catalog::printTree(); ?></div>
 </div>
