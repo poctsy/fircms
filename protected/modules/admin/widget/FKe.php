@@ -32,7 +32,7 @@ class FKe extends CWidget
 					}",
             ),
             'textareaOptions' => array(
-                'style' => 'width:98%;height:400px;',
+                'style' => 'width:98%;height:350px;',
             )
         ));
         echo CHtml::closeTag('div');
