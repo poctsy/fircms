@@ -53,7 +53,7 @@ $('.search-form form').submit(function(){
         ),
         array(
             'name'=>'username',
-            'htmlOptions'=>array('width'=>50),
+            'htmlOptions'=>array('width'=>200),
             'value'=>'$data->usernameLookup()',
         ),
 
