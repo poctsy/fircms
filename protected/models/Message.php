@@ -184,8 +184,10 @@ class Message extends FActiveRecord
     public function orUser_imgLookup(){
         if($this->from_user_id!=Yii::app()->user->id){
             $user_img=$this->from_user->img;
+
         }else{
-            $user_img=$this->to_user->img;
+
+            $user_img=$this->from_user->img;
         }
 
         if(!$user_img)$user_img ='none.png';
