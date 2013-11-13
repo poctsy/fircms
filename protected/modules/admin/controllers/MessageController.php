@@ -146,11 +146,11 @@ class MessageController extends FAdminController
     public function actionReply($user)
     {
         $getUser=User::model()->findbypk(Yii::app()->request->getParam('user'));
-        if($getUser==NULL){
+        if($getUser==NULL)
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        }{
+
         $to_user_name=$getUser->username;
-    }
+
         $model=new Message;
 
         // Uncomment the following line if AJAX validation is needed
@@ -180,11 +180,12 @@ class MessageController extends FAdminController
         if($getUser==NULL)
          $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 
-        $getUser_id=$getUser->id;
+
+        $to_user_id=$getUser->id;
         $user_id=Yii::app()->user->id;
         $criteria = new CDbCriteria;
-        $criteria->addInCondition('from_user_id', array($user_id,$getUser_id),'and');
-        $criteria->addInCondition('to_user_id', array($user_id,$getUser_id),'and');
+        $criteria->addInCondition('from_user_id', array($user_id,$to_user_id),'and');
+        $criteria->addInCondition('to_user_id', array($user_id,$to_user_id),'and');
        // $criteria->addCondition("from_user_id=$from_user_id","OR");
        // $criteria->addCondition("to_user_id=$to_user_id","OR");
         $dataProvider=new CActiveDataProvider('Message',array(
@@ -192,6 +193,7 @@ class MessageController extends FAdminController
         ));
         $this->render('view/view',array(
             'dataProvider'=>$dataProvider,
+            'to_user_id'=>$to_user_id,
         ));
     }
 

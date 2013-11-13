@@ -166,9 +166,13 @@ class Message extends FActiveRecord
         }
     }
 
-    public function from_user_idLookup(){
+    public function fromUser_nameLookup(){
         return $this->from_user->username;
     }
+    public function toUser_nameLookup(){
+        return $this->to_user->username;
+    }
+
     public function beforeSave() {
 //------------------------------------------------------
         if ($this->isNewRecord) {
@@ -178,7 +182,7 @@ class Message extends FActiveRecord
     }
 
 
-    public function user_imgLookup(){
+    public function orUser_imgLookup(){
         if($this->from_user_id!=Yii::app()->user->id){
             $user_img=$this->from_user->img;
         }else{
@@ -188,7 +192,7 @@ class Message extends FActiveRecord
         if(!$user_img)$user_img ='none.png';
         return $user_img;
     }
-    public function usernameLookup(){
+    public function orUsernameLookup(){
         if($this->from_user_id!=Yii::app()->user->id){
             $user= $this->from_user->username;
         }else{
@@ -198,7 +202,7 @@ class Message extends FActiveRecord
         return $user;
     }
 
-    public function replyLookup(){
+    public function orReplyLookup(){
         if($this->from_user_id!=Yii::app()->user->id){
             $user= $this->from_user_id;
         }else{

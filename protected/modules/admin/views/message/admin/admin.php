@@ -49,10 +49,12 @@ $('.search-form form').submit(function(){
         array(
             'name'=>'from_user_id',
             'htmlOptions'=>array('width'=>50),
+             'value'=>'$data->fromUser_nameLookup()',
         ),
         array(
             'name'=>'to_user_id',
             'htmlOptions'=>array('width'=>50),
+            'value'=>'$data->toUser_nameLookup()',
         ),
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
         array('name'=>'create_time','type'=>'datetime'),

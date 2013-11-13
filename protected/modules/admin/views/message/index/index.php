@@ -48,13 +48,13 @@ $('.search-form form').submit(function(){
             'name'=>'user_img',
             'header'=>'头像',
             'type'=>'image',
-            'value'=>'Yii::app()->baseUrl.DIRECTORY_SEPARATOR.Yii::app()->params->user_imgPath.DIRECTORY_SEPARATOR.$data->user_imgLookup()',
+            'value'=>'Yii::app()->baseUrl.DIRECTORY_SEPARATOR.Yii::app()->params->user_imgPath.DIRECTORY_SEPARATOR.$data->orUser_imgLookup()',
             'htmlOptions'=>array('width'=>50),
         ),
         array(
             'name'=>'username',
             'htmlOptions'=>array('width'=>200),
-            'value'=>'$data->usernameLookup()',
+            'value'=>'$data->orUsernameLookup()',
         ),
 
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
@@ -67,12 +67,12 @@ $('.search-form form').submit(function(){
                 'reply' => array(
                     'icon'=>'edit',
                     'options'=>array('title'=>'回复'),
-                    'url'=>'Yii::app()->controller->createUrl("reply",array("user"=>$data->replyLookup()))',
+                    'url'=>'Yii::app()->controller->createUrl("reply",array("user"=>$data->orReplyLookup()))',
                 ),
                 'view' => array(
                     'icon'=>'refresh',
                     'options'=>array('title'=>'查看'),
-                    'url'=>'Yii::app()->controller->createUrl("view",array("user"=>$data->replyLookup()))',
+                    'url'=>'Yii::app()->controller->createUrl("view",array("user"=>$data->orReplyLookup()))',
                 ),
             ),
         ),
