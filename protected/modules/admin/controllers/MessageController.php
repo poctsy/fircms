@@ -29,7 +29,7 @@ class MessageController extends FAdminController
         if(isset($_GET['Message']))
             $model->attributes=$_GET['Message'];
 
-        $this->render('index',array(
+        $this->render('index/index',array(
             'model'=>$model,
         ));
     }

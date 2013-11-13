@@ -31,7 +31,7 @@ $('.search-form form').submit(function(){
 <h1>查看信息</h1>
 <?php echo CHtml::link('高级搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
+<?php $this->renderPartial('index/_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->

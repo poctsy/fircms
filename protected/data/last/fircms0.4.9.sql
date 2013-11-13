@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 11 月 13 日 04:35
+-- 生成日期: 2013 年 11 月 12 日 12:17
 -- 服务器版本: 5.5.24-log
 -- PHP 版本: 5.3.13
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `fircms_catalog` (
   `content_view` varchar(50) NOT NULL DEFAULT '' COMMENT '文章详细页视图',
   `page_view` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=431 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=432 ;
 
 --
 -- 转存表中的数据 `fircms_catalog`
@@ -221,15 +221,27 @@ CREATE TABLE IF NOT EXISTS `fircms_message` (
   `from_user_id` int(11) NOT NULL,
   `to_user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `fircms_message`
 --
 
 INSERT INTO `fircms_message` (`id`, `content`, `status`, `create_time`, `from_user_id`, `to_user_id`) VALUES
-(6, 'demo\r\n', 0, 0, 1, 2),
-(7, 'aa', 0, 0, 1, 1);
+(1, '', 1, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `fircms_message_reply`
+--
+
+CREATE TABLE IF NOT EXISTS `fircms_message_reply` (
+  `id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `message_id` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='站内信回复表';
 
 -- --------------------------------------------------------
 
@@ -270,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `fircms_plus` (
   `name` varchar(11) NOT NULL,
   `class` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- 转存表中的数据 `fircms_plus`
@@ -302,7 +314,14 @@ CREATE TABLE IF NOT EXISTS `fircms_post` (
   `soft` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_article_catalog` (`catalog_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `fircms_post`
+--
+
+INSERT INTO `fircms_post` (`id`, `catalog_id`, `title`, `subtitle`, `title_s`, `keyword`, `thumb`, `description`, `user_id`, `view_count`, `create_time`, `content`, `images`, `soft`) VALUES
+(7, 415, '测试', '', '', '', 'upload/thumb/20131111/20131111183101_99772.png', '', 0, 0, 0, '测试', '{img}{src}upload/image/20131111/20131111182933_92595.png{/src}{text}undefined{/text}{/img}{img}{src}upload/image/20131111/20131111183003_58034.jpg{/src}{text}undefined{/text}{/img}', '');
 
 -- --------------------------------------------------------
 
@@ -336,15 +355,16 @@ CREATE TABLE IF NOT EXISTS `fircms_user` (
   `last_login_time` int(11) NOT NULL DEFAULT '0',
   `last_login_ip` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `fircms_user`
 --
 
 INSERT INTO `fircms_user` (`id`, `username`, `password`, `salt`, `email`, `realname`, `phone`, `created_time`, `last_login_time`, `last_login_ip`) VALUES
-(1, 'fircms', 'e939401ac7ec79e916a9a0c6a8399adc', 'osvMgS@}ld/;+>ow&.-%8Drt8FCs}Sd&', 'fircms@fircms.com', '', '', 1384315820, 1384317187, '127.0.0.1'),
-(2, 'demo', '531e872f2cd024184934d6b9184740d7', '~/|hNte1|NuB@V6@$JQoW4YwO:A4xY|o', 'demo@demo.com', '', '', 1380376428, 1383752685, '127.0.0.1');
+(1, 'fircms', 'fecf55dc3986c295728ef7603c4298', 'rRq&Zs4^0`_v:x_/=tMpBUd6+(spr%*0', 'fircms@fircms.com', '', '', 1380376428, 1384234018, '127.0.0.1'),
+(2, 'demo', 'bb8dbbc6a1bbedc60f044654a1976b', '1hc`1K}WtRot^XqXtXk(yk|QTJ+kr]w:', 'demo@demo.com', '', '', 1380376428, 1383752685, '127.0.0.1'),
+(5, 'aaaaaa', 'c492c24888e01e96da51c1f0355a8e3d', 'hTf~CGEQlJgi;xIkUZ(5UUml4w3yf[t9', 'aaaaaa@aa.aa', '', '', 1384257169, 1384257202, '127.0.0.1');
 
 --
 -- 限制导出的表
