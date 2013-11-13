@@ -180,11 +180,13 @@ class MessageController extends FAdminController
         if($getUser==NULL)
          $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 
-        $to_user_id=$getUser->id;
-        $from_user_id=Yii::app()->user->id;
+        $getUser_id=$getUser->id;
+        $user_id=Yii::app()->user->id;
         $criteria = new CDbCriteria;
-        $criteria->addCondition("from_user_id=$from_user_id","OR");
-        $criteria->addCondition("to_user_id=$to_user_id","OR");
+        $criteria->addInCondition('from_user_id', array($user_id,$getUser_id),'and');
+        $criteria->addInCondition('to_user_id', array($user_id,$getUser_id),'and');
+       // $criteria->addCondition("from_user_id=$from_user_id","OR");
+       // $criteria->addCondition("to_user_id=$to_user_id","OR");
         $dataProvider=new CActiveDataProvider('Message',array(
             'criteria'=>$criteria,
         ));

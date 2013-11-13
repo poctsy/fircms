@@ -67,12 +67,12 @@ $('.search-form form').submit(function(){
                 'reply' => array(
                     'icon'=>'edit',
                     'options'=>array('title'=>'回复'),
-                    'url'=>'Yii::app()->controller->createUrl("reply",array("user"=>$data->from_user_id))',
+                    'url'=>'Yii::app()->controller->createUrl("reply",array("user"=>$data->replyLookup()))',
                 ),
                 'view' => array(
                     'icon'=>'refresh',
                     'options'=>array('title'=>'查看'),
-                    'url'=>'Yii::app()->controller->createUrl("view",array("user"=>$data->from_user_id))',
+                    'url'=>'Yii::app()->controller->createUrl("view",array("user"=>$data->replyLookup()))',
                 ),
             ),
         ),

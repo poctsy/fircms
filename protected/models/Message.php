@@ -179,27 +179,28 @@ class Message extends FActiveRecord
 
 
     public function user_imgLookup(){
-        if($this->from_user_id==Yii::app()->user->id){
-            $user_img=$this->to_user->img;
-        }else{
+        if($this->from_user_id!=Yii::app()->user->id){
             $user_img=$this->from_user->img;
+        }else{
+            $user_img=$this->to_user->img;
         }
 
         if(!$user_img)$user_img ='none.png';
         return $user_img;
     }
     public function usernameLookup(){
-        if($this->from_user_id==Yii::app()->user->id){
-            $user= '发给:@'.$this->to_user->username;
-        }else{
+        if($this->from_user_id!=Yii::app()->user->id){
             $user= $this->from_user->username;
+        }else{
+            $user= '发给:@'.$this->to_user->username;
         }
 
         return $user;
     }
-    public function user_idLookup(){
-        if($this->from_user_id==Yii::app()->user->id){
-            $user= '发给:@'.$this->to_user_id;
+
+    public function replyLookup(){
+        if($this->from_user_id!=Yii::app()->user->id){
+            $user= $this->from_user_id;
         }else{
             $user= $this->to_user_id;
         }
