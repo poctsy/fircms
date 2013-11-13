@@ -112,6 +112,9 @@ class Message extends FActiveRecord
         $criteria->compare('to_user_id',$this->to_user_id);
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'sort'=>array(
+                'defaultOrder'=>'t.create_time DESC',
+            ),
         ));
     }
 
