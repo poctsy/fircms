@@ -109,7 +109,7 @@ class Message extends FActiveRecord
         $criteria->compare('status',$this->status);
         $criteria->compare('create_time',$this->create_time);
         $criteria->compare('from_user_id',$this->from_user_id);
-        $criteria->compare('to_user_id',$this->to_user_id);
+        $criteria->compare('to_user_id',Yii::app()->user->id);
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
             'sort'=>array(
