@@ -54,7 +54,7 @@ $('.search-form form').submit(function(){
 		'username',
 		'email',
                 array(
-			'name'=>'created_time',
+			'name'=>'create_time',
 			'type'=>'datetime',
 			'filter'=>false,
 		),

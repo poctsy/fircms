@@ -15,7 +15,7 @@
  * @property string $password
  * @property string $salt
  * @property string $email
- * @property integer $created_time
+ * @property integer $create_time
  * @property integer $last_login_time
  * @property string $last_login_ip
  * @property string $realname
@@ -45,8 +45,9 @@ class User extends FActiveRecord {
             array('username', 'length', 'max' => 50, 'min' => 2, 'tooLong' => '帐号位数太长', 'tooShort' => '帐号位数太短'),
             array('password', 'length', 'max' => 128, 'min' => 6, 'tooLong' => '帐号位数太长', 'tooShort' => '帐号位数太短'),
             array('phone,realname', 'length', 'max' => 30),
-            array('id, username,email, created_time, last_login_time,last_login_ip,realname,phone', 'safe', 'on' => 'search'),
-            array('username, realname', 'filter', 'filter' => array($this, 'Purify')),
+            array('img', 'length', 'max' => 100),
+            array('id, username,email, create_time, last_login_time,last_login_ip,realname,phone', 'safe', 'on' => 'search'),
+            array('username, realname,img', 'filter', 'filter' => array($this, 'Purify')),
         );
     }
 
@@ -70,11 +71,12 @@ class User extends FActiveRecord {
             'username' => '帐号',
             'password' => '密码',
             'email' => '邮箱',
-            'created_time' => '创建时间',
+            'create_time' => '创建时间',
             'last_login_time' => '最后登录时间',
             'last_login_ip' => '登录ip',
             'realname' => '姓名',
             'phone' => '电话',
+            'img' => '头像',
         );
     }
 
@@ -98,7 +100,7 @@ class User extends FActiveRecord {
         $criteria->compare('id', $this->id);
         $criteria->compare('username', $this->username, true);
         $criteria->compare('email', $this->email, true);
-        $criteria->compare('created_time', $this->created_time, true);
+        $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('last_login_time', $this->last_login_time, true);
         $criteria->compare('last_login_ip', $this->last_login_ip, true);
         $criteria->compare('realname', $this->realname, true);
@@ -175,7 +177,7 @@ class User extends FActiveRecord {
         if ($this->isNewRecord) {
             $this->salt = $this->generate_salt(32);
             $this->password = $this->hashPassword($this->password, $this->salt);
-            $this->created_time = time();
+            $this->create_time = time();
         }
 
         return true;

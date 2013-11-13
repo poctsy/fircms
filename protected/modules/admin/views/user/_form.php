@@ -25,6 +25,8 @@
 
     <?php echo $form->passwordFieldControlGroup($model, 'password'); ?>
 
+    <?php echo $form->textFieldControlGroup($model, 'img'); ?>
+
     <?php echo $form->textFieldControlGroup($model, 'realname'); ?>
 
     <?php echo $form->textFieldControlGroup($model, 'phone'); ?>

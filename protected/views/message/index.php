@@ -17,6 +17,6 @@ $this->menu=array(
 <h1>Message Replies</h1>
 
 <?php $this->widget('bootstrap.widgets.TbListView',array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+    'dataProvider'=>$dataProvider,
+    'itemView'=>'_view',
 )); ?>

@@ -43,9 +43,7 @@ class UserController extends FAdminController {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        if(YII_DEBUG){
-            throw new CHttpException(403, 'DEBUG模式下，禁止更新操作.');
-        }
+
 
 
         $model = $this->loadModel($id);
@@ -76,9 +74,7 @@ class UserController extends FAdminController {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        if(YII_DEBUG){
-            throw new CHttpException(403, 'DEBUG模式下，禁止删除操作.');
-        }
+
 
 
         $load = $this->loadModel($id);

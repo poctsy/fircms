@@ -40,17 +40,21 @@ $('.search-form form').submit(function(){
 	'id'=>'message-grid',
     //'cssFile'=>Yii::app()->theme->baseUrl."/css/grid.css",
     'summaryText'=>false,
+    'hideHeader'=>true,
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
         array(
-            'name'=>'id',
-            'header'=>'#',
+            'name'=>'user_img',
+            'header'=>'头像',
+            'type'=>'image',
+            'value'=>'Yii::app()->baseUrl.DIRECTORY_SEPARATOR.Yii::app()->params->user_imgPath.DIRECTORY_SEPARATOR.$data->user_imgLookup()',
             'htmlOptions'=>array('width'=>50),
         ),
         array(
-            'name'=>'from_user_id',
+            'name'=>'username',
             'htmlOptions'=>array('width'=>50),
+            'value'=>'$data->usernameLookup()',
         ),
 
         array('name'=>'content','value'=>'Fircms::truncate_utf8_string($data->content,50)'),
@@ -58,12 +62,17 @@ $('.search-form form').submit(function(){
         array(
            // 'htmlOptions' => array('nowrap'=>'nowrap'),
             'class'=>'bootstrap.widgets.TbButtonColumn',
-            'template' => '{send}{delete}',
+            'template' => '{reply}{view}{delete}',
             'buttons'=>array(
-                'send' => array(
+                'reply' => array(
                     'icon'=>'edit',
-                    'options'=>array('title'=>'发信息'),
-                    'url'=>'Yii::app()->controller->createUrl("send",array("user"=>$data->from_user_id))',
+                    'options'=>array('title'=>'回复'),
+                    'url'=>'Yii::app()->controller->createUrl("reply",array("user"=>$data->from_user_id))',
+                ),
+                'view' => array(
+                    'icon'=>'refresh',
+                    'options'=>array('title'=>'查看'),
+                    'url'=>'Yii::app()->controller->createUrl("view",array("user"=>$data->from_user_id))',
                 ),
             ),
         ),

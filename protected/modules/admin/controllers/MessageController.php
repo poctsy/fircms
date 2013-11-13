@@ -1,28 +1,28 @@
 <?php
 //会员站内信模块
 /**
-* @author   poctsy  <poctsy@foxmail.com>
-* @copyright Copyright (c) 2013 poctsy
-* @link      http://www.fircms.com
-* @version   MessageController.php  23:56 2013年10月02日  
-*/
+ * @author   poctsy  <poctsy@foxmail.com>
+ * @copyright Copyright (c) 2013 poctsy
+ * @link      http://www.fircms.com
+ * @version   MessageController.php  23:56 2013年10月02日
+ */
 class MessageController extends FAdminController
 {
 
-	public $layout='application.modules.admin.views.layouts.column2';
+    public $layout='application.modules.admin.views.layouts.column2';
 
     public function filters() {
         return array(
             array('auth.filters.AuthFilter'),
         );
     }
-       
+
 
 
     /**
      * Manages all models.
      */
-    public function actionIndex($user='all')
+    public function actionIndex()
     {
         $model=new Message('search');
         $model->unsetAttributes();  // clear any default values
@@ -34,20 +34,20 @@ class MessageController extends FAdminController
         ));
     }
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Message('adminSearch');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Message']))
-			$model->attributes=$_GET['Message'];
+    /**
+     * Manages all models.
+     */
+    public function actionAdmin()
+    {
+        $model=new Message('adminSearch');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Message']))
+            $model->attributes=$_GET['Message'];
 
-		$this->render('admin/admin',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('admin/admin',array(
+            'model'=>$model,
+        ));
+    }
 
 
 
@@ -90,41 +90,41 @@ class MessageController extends FAdminController
             'model'=>$model,
         ));
     }
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer $id the ID of the model to be loaded
-	 * @return Message the loaded model
-	 * @throws CHttpException
-	 */
-	public function loadModel($id)
-	{
-		$model=Message::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
+    /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     * @param integer $id the ID of the model to be loaded
+     * @return Message the loaded model
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model=Message::model()->findByPk($id);
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        return $model;
+    }
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param Message $model the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='message-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
-
-
+    /**
+     * Performs the AJAX validation.
+     * @param Message $model the model to be validated
+     */
+    protected function performAjaxValidation($model)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='message-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 
 
 
 
 
-    public function actionSend($user='all')
+
+
+    public function actionSend()
     {
         $model=new Message;
         $model->scenario='send';
@@ -143,5 +143,54 @@ class MessageController extends FAdminController
         ));
     }
 
+    public function actionReply($user)
+    {
+        $getUser=User::model()->findbypk(Yii::app()->request->getParam('user'));
+        if($getUser==NULL){
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        }{
+        $to_user_name=$getUser->username;
+    }
+        $model=new Message;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+        if($getUser!=NULL)$model->to_user_id==$getUser->id;
+        $model->from_user_id=Yii::app()->user->id;
+        if(isset($_POST['Message']))
+        {
+            $model->attributes=$_POST['Message'];
+
+            if($model->save())
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        }
+        $this->render('reply/reply',array(
+            'model'=>$model,
+            'to_user_name'=>$to_user_name,
+        ));
+    }
+
+
+    /**
+     * Manages all models.
+     */
+    public function actionView($user)
+    {
+        $getUser=User::model()->findbypk(Yii::app()->request->getParam('user'));
+        if($getUser==NULL)
+         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+
+        $to_user_id=$getUser->id;
+        $from_user_id=Yii::app()->user->id;
+        $criteria = new CDbCriteria;
+        $criteria->addCondition("from_user_id=$from_user_id","OR");
+        $criteria->addCondition("to_user_id=$to_user_id","OR");
+        $dataProvider=new CActiveDataProvider('Message',array(
+            'criteria'=>$criteria,
+        ));
+        $this->render('view/view',array(
+            'dataProvider'=>$dataProvider,
+        ));
+    }
 
 }

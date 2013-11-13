@@ -4,9 +4,10 @@
 /* @var $form CActiveForm */
 ?>
 
+<div class="wide form">
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'layout' => TbHtml::FORM_LAYOUT_INLINE,
+    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
@@ -20,3 +21,4 @@
 
 <?php $this->endWidget(); ?>
 
+</div><!-- search-form -->

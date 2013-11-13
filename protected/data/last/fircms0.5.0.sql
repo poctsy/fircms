@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 11 月 13 日 11:15
+-- 生成日期: 2013 年 11 月 13 日 04:35
 -- 服务器版本: 5.5.24-log
 -- PHP 版本: 5.3.13
 
@@ -221,15 +221,15 @@ CREATE TABLE IF NOT EXISTS `fircms_message` (
   `from_user_id` int(11) NOT NULL,
   `to_user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `fircms_message`
 --
 
 INSERT INTO `fircms_message` (`id`, `content`, `status`, `create_time`, `from_user_id`, `to_user_id`) VALUES
-(11, '测试内容1', 0, 1384326575, 2, 1),
-(13, '测试内容3', 0, 1384329477, 1, 1);
+(6, 'demo\r\n', 0, 0, 1, 2),
+(7, 'aa', 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -332,8 +332,7 @@ CREATE TABLE IF NOT EXISTS `fircms_user` (
   `email` varchar(100) NOT NULL,
   `realname` varchar(30) NOT NULL DEFAULT '',
   `phone` varchar(30) NOT NULL DEFAULT '',
-  `img` varchar(100) NOT NULL,
-  `create_time` int(11) NOT NULL DEFAULT '0',
+  `created_time` int(11) NOT NULL DEFAULT '0',
   `last_login_time` int(11) NOT NULL DEFAULT '0',
   `last_login_ip` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
@@ -343,9 +342,9 @@ CREATE TABLE IF NOT EXISTS `fircms_user` (
 -- 转存表中的数据 `fircms_user`
 --
 
-INSERT INTO `fircms_user` (`id`, `username`, `password`, `salt`, `email`, `realname`, `phone`, `img`, `create_time`, `last_login_time`, `last_login_ip`) VALUES
-(1, 'fircms', '9afec31d5d141f19eb5ca46d9aa8cb34', 'y6mt4<;O{H$~Nkdx<9JF-+*{5/x;/ntO', 'fircms@fircms.com', '', '', '6.png', 1384315820, 1384318830, '127.0.0.1'),
-(2, 'demo', '0642ebc46291f98e27f37cf442b39053', 'qHj_XaZ-|Q:2WRP@yU]Y$O!Gx]phwI;p', 'demo@demo.com', '', '', '', 1380376428, 1383752685, '127.0.0.1');
+INSERT INTO `fircms_user` (`id`, `username`, `password`, `salt`, `email`, `realname`, `phone`, `created_time`, `last_login_time`, `last_login_ip`) VALUES
+(1, 'fircms', 'e939401ac7ec79e916a9a0c6a8399adc', 'osvMgS@}ld/;+>ow&.-%8Drt8FCs}Sd&', 'fircms@fircms.com', '', '', 1384315820, 1384317187, '127.0.0.1'),
+(2, 'demo', '531e872f2cd024184934d6b9184740d7', '~/|hNte1|NuB@V6@$JQoW4YwO:A4xY|o', 'demo@demo.com', '', '', 1380376428, 1383752685, '127.0.0.1');
 
 --
 -- 限制导出的表

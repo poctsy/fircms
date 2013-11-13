@@ -52,8 +52,7 @@ body {
 
                 'htmlOptions'=>array('class'=>'pull-right'),
                         'items'=>array(
-                            array('label'=>TbHtml::labelTb('您好, '.Yii::app()->user->name.' 欢迎使用 FirCMS!&nbsp;&nbsp;',array('style'=>'margin-top:8px;padding-right:0px;')), 'visible'=>!Yii::app()->user->isGuest),
-                            array('label'=>"短信息", 'url'=>array('/admin/message/index'), 'visible'=>!Yii::app()->user->isGuest),
+                            array('label'=>TbHtml::labelTb('欢迎使用 FirCMS!&nbsp;&nbsp;',array('style'=>'margin-top:8px;padding-right:0px;')), 'visible'=>!Yii::app()->user->isGuest),
                            array('label'=>'系统主页 &nbsp;', 'url'=>array('/admin/default/index'),'linkOptions'=>array('style'=>'padding-right:0px;'), 'active' => false, 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'网站主页 &nbsp;', 'url'=>array('/site/index'),'linkOptions'=>array('style'=>'padding-right:0px;'), 'visible'=>!Yii::app()->user->isGuest),
                           array('label'=>'<i class="icon-off" style="margin-top:4px;"></i>[退出]', 'url'=>array('/site/logout'),'linkOptions'=>array('style'=>'padding-left:0px;'), 'visible'=>!Yii::app()->user->isGuest),
