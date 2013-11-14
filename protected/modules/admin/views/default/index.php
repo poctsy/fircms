@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
         ,array('feedback/admin'));?>
      短信息:
     <?php echo CHtml::link(Message::model()->count(array('condition'=>"status='1'"))
-        ,array('message/admin'));?>
+        ,array('message/index'));?>
 </p>
 
 
