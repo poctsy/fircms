@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 11 月 14 日 14:09
+-- 生成日期: 2013 年 11 月 13 日 11:15
 -- 服务器版本: 5.5.24-log
 -- PHP 版本: 5.3.13
 
@@ -33,13 +33,6 @@ CREATE TABLE IF NOT EXISTS `fircms_authassignment` (
   `data` text,
   PRIMARY KEY (`itemname`,`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `fircms_authassignment`
---
-
-INSERT INTO `fircms_authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
-('Admin', '1', NULL, 'N;');
 
 -- --------------------------------------------------------
 
@@ -120,8 +113,8 @@ INSERT INTO `fircms_catalog` (`id`, `lft`, `rgt`, `level`, `name`, `subtitle`, `
 (409, 1, 26, 1, '顶级分类', '', '', '', '', '', '', '1', '', '', '', '', ''),
 (410, 2, 7, 2, '新闻资讯', '', 'aaa', 'upload/thumb/20131109/20131109135424_14842.png', '', '', '', 'list', 'news', '新闻资讯', '0', '0', ''),
 (411, 8, 17, 2, '产品展示', '', '', 'upload/thumb/20131110/20131110000909_61240.png', '', '', '', 'list', 'product', ' ', '0', '0', ''),
-(415, 3, 4, 3, '公司动态', '', '', 'upload/thumb/20131109/20131109135438_71339.png', '', '', '', 'list', 'classa', '', '0', '0', ''),
-(416, 5, 6, 3, '业界资讯', '', '', 'upload/thumb/20131109/20131109135444_30516.png', '', '', '', 'list', 'classb', '', '0', '0', ''),
+(415, 5, 6, 3, '公司动态', '', '', 'upload/thumb/20131109/20131109135438_71339.png', '', '', '', 'list', 'classa', '', '0', '0', ''),
+(416, 3, 4, 3, '业界资讯', '', '', 'upload/thumb/20131109/20131109135444_30516.png', '', '', '', 'list', 'classb', '', '0', '0', ''),
 (420, 9, 16, 3, '饰品珠宝', '', '', '', '', '', '', 'list', 'a2', '', '0', '0', ''),
 (421, 10, 11, 4, '最新款', '', '', '', '', '', '', 'list', 'a3', '', '0', '0', ''),
 (427, 18, 23, 2, '下载中心', '', '', '', '', '', '', 'list', 'download', '', '0', '0', ''),
@@ -228,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `fircms_message` (
   `from_user_id` int(11) NOT NULL,
   `to_user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='站内信' AUTO_INCREMENT=14 ;
 
 --
 -- 转存表中的数据 `fircms_message`
@@ -236,10 +229,7 @@ CREATE TABLE IF NOT EXISTS `fircms_message` (
 
 INSERT INTO `fircms_message` (`id`, `content`, `status`, `create_time`, `from_user_id`, `to_user_id`) VALUES
 (11, '测试内容1', 0, 1384326575, 2, 1),
-(13, '测试内容3', 0, 1384329477, 1, 2),
-(14, '测试内容4', 0, 1384343511, 1, 2),
-(15, '测试内容5', 0, 1384343512, 8, 1),
-(16, '测试内容6', 0, 0, 9, 8);
+(13, '测试内容3', 0, 1384329477, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -347,17 +337,15 @@ CREATE TABLE IF NOT EXISTS `fircms_user` (
   `last_login_time` int(11) NOT NULL DEFAULT '0',
   `last_login_ip` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `fircms_user`
 --
 
 INSERT INTO `fircms_user` (`id`, `username`, `password`, `salt`, `email`, `realname`, `phone`, `img`, `create_time`, `last_login_time`, `last_login_ip`) VALUES
-(1, 'fircms', 'c26f1eee9061c50056da4b754f9baea4', '<l.ZpR(|otS[Y`z$o->Iw)2w.5b|,_DK', 'fircms@fircms.com', '', '', '', 1384315820, 1384427020, '127.0.0.1'),
-(2, 'demo', 'bb2c867060bb05c15d3cdfad9ede590e', 'M1^7+>cJa9iByq<Ry,wXe{2[kJtx:kGw', 'demo@demo.com', '', '', '6.png', 1380376428, 1383752685, '127.0.0.1'),
-(8, '11111', '0a4802bdba8ebcdac663b7bfa0208402', 'Sqg2TpO;^Puv&d3B[/e:jS{Y>.G$p<ql', '11111@qq.cc', '', '', '', 1384342401, 0, ''),
-(9, 'aass', '30755b1ae5a691841e858f0936b0a54f', '(gHT<EydG&=vg7^$:h,iaVdZTrc%#c+g', 'aass@qq.cc', '', '', '', 1384401410, 0, '');
+(1, 'fircms', '9afec31d5d141f19eb5ca46d9aa8cb34', 'y6mt4<;O{H$~Nkdx<9JF-+*{5/x;/ntO', 'fircms@fircms.com', '', '', '6.png', 1384315820, 1384318830, '127.0.0.1'),
+(2, 'demo', '0642ebc46291f98e27f37cf442b39053', 'qHj_XaZ-|Q:2WRP@yU]Y$O!Gx]phwI;p', 'demo@demo.com', '', '', '', 1380376428, 1383752685, '127.0.0.1');
 
 --
 -- 限制导出的表

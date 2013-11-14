@@ -417,8 +417,6 @@ class Fircms extends CComponent{
 
     }
 
-
-
     private static function recursionMkDir($dir){
         if(!is_dir($dir)){
             if(!is_dir(dirname($dir))){
@@ -429,6 +427,26 @@ class Fircms extends CComponent{
             }
         }
     }
+
+    //判断头像图片位置，是否允许远程图片
+    public static function formatUserImg($user_img){
+        //如果图片不存在显示默认的none.png
+        if(!$user_img){
+            $user_imgUrl=Yii::app()->baseUrl.DS.'static'.DS.'img'.DS.'none.png';
+        }else{
+//查看是否为自带系统头像,用户上传的头像的图片名字是加了日期，所以不会跟系统头像名字重复
+            if(file_exists(dirname(Yii::app()->basePath.DS).DS.'static'.DS.'img'.DS.$user_img)){
+                $user_imgUrl=Yii::app()->baseUrl.DS.'static'.DS.'img'.DS.$user_img;
+            }elseif(file_exists(dirname(Yii::app()->basePath).DS.Yii::app()->params->uploadPath.DS.'img'.DS.$user_img)){
+                $user_imgUrl=Yii::app()->baseUrl.DS.Yii::app()->params->uploadPath.DS.'img'.DS.$user_img;
+//是否允许远程图片，默认关闭
+            }elseif(Yii::app()->params->remoteUserImg){
+                $user_imgUrl=$user_img;
+            }
+        }
+        return $user_imgUrl;
+    }
+
 
 }
 

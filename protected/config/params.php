@@ -3,5 +3,5 @@
 return array(
     'theme'=>'default',
     'uploadPath'=>'upload',
-    'user_imgPath'=>'static'.DIRECTORY_SEPARATOR.'img',
+    'remoteUserImg'=>false,
 );

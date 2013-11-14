@@ -4,16 +4,13 @@
     <div class="row-fluid">
 
     <div class="span2">
-        <?php $user_img=User::model()->findByPk(Yii::app()->user->id)->img;
-        if(!$user_img)$user_img ='none.png';
-
-        ?>
+        <?php $user_imgUrl=Fircms::formatUserImg(User::model()->findByPk(Yii::app()->user->id)->img); ?>
         <?php $this->widget('bootstrap.widgets.TbNav', array(
             'type' => TbHtml::NAV_TYPE_TABS,
             'encodeLabel'=>false,
             'stacked' => true,
             'items' =>array(
-                array('label'=>CHtml::image(Yii::app()->baseUrl.DIRECTORY_SEPARATOR.Yii::app()->params->user_imgPath.DIRECTORY_SEPARATOR.$user_img,'',
+                array('label'=>CHtml::image($user_imgUrl,'',
                         array('width'=>80,'height'=>80)
                         ).Yii::app()->user->name, 'url'=>array('/admin/default')),
                 array('label'=>"短信息", 'url'=>array('/admin/message/index'), 'visible'=>!Yii::app()->user->isGuest),

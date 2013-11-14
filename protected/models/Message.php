@@ -176,7 +176,6 @@ class Message extends FActiveRecord
     }
 
     public function beforeSave() {
-//------------------------------------------------------
         if ($this->isNewRecord) {
             $this->create_time = time();
         }
@@ -187,14 +186,10 @@ class Message extends FActiveRecord
     public function orUser_imgLookup(){
         if($this->from_user_id!=Yii::app()->user->id){
             $user_img=$this->from_user->img;
-
         }else{
-
             $user_img=$this->from_user->img;
         }
-
-        if(!$user_img)$user_img ='none.png';
-        return $user_img;
+        return Fircms::formatUserImg($user_img);
     }
     public function orUsernameLookup(){
         if($this->from_user_id!=Yii::app()->user->id){
@@ -202,7 +197,6 @@ class Message extends FActiveRecord
         }else{
             $user= '发给:@'.$this->to_user->username;
         }
-
         return $user;
     }
 

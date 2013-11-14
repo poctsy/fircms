@@ -48,7 +48,7 @@ $('.search-form form').submit(function(){
             'name'=>'user_img',
             'header'=>'头像',
             'type'=>'image',
-            'value'=>'Yii::app()->baseUrl.DIRECTORY_SEPARATOR.Yii::app()->params->user_imgPath.DIRECTORY_SEPARATOR.$data->orUser_imgLookup()',
+            'value'=>'$data->orUser_imgLookup()',
             'htmlOptions'=>array('width'=>50),
         ),
         array(
