@@ -431,6 +431,7 @@ class Fircms extends CComponent{
     //判断头像图片位置，是否允许远程图片
     public static function formatUserImg($user_img){
         //如果图片不存在显示默认的none.png
+
         if(!$user_img){
             $user_imgUrl=Yii::app()->baseUrl.DS.'static'.DS.'img'.DS.'none.png';
         }else{
@@ -442,8 +443,13 @@ class Fircms extends CComponent{
 //是否允许远程图片，默认关闭
             }elseif(Yii::app()->params->remoteUserImg){
                 $user_imgUrl=$user_img;
+
+            }else{
+                $user_imgUrl=Yii::app()->baseUrl.DS.'static'.DS.'img'.DS.'none.png';
             }
+
         }
+
         return $user_imgUrl;
     }
 
